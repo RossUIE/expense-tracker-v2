@@ -1,0 +1,42 @@
+// colours
+
+//whites and blacks
+$white: #FDFDFD !default;
+$off-white: #f5f5f5 !default;
+$black: #1E1E1E !default;
+$text:#616E80 !default;
+
+//brand
+$brand: #FF8A8A !default;
+$brand-darker: darken($brand, 7%) !default;
+
+//grays
+$light-gray: #D6DAE0 !default;
+$dark-gray: #B1B8C2 !default;
+$darker-gray: #1E1E1E !default;
+
+//borders
+$input-border: #cbcbd2 !default;
+$border-color: #E2E6E7 !default;
+
+//erros and success
+$error: #FFBABA !default;
+$errorRed: #cc0000 !default;
+$green: #40C237 !default;
+$success-green: #dbf0d9 !default;
+$DarkGreen: #0D8547 !default;
+$green-darker: darken($green, 7%);
+
+//placeholder
+$placeholder: #A8B1B6 !default; 
+
+//li hover
+$duration: .2s;
+$distance: 8px;
+$easeOutBack: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+
+$inputBorderRadius: 5px;
+
+// Font Sizes
+$root-font-size: 16 !default; // used for REM base
+$base-font-size: 1rem !default;

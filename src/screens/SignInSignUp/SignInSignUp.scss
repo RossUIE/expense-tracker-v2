@@ -1,0 +1,19 @@
+@import '../../styles/vars.scss';
+@import '../../styles/functions.scss';
+
+.sign-in-and-sign-up {
+    max-width: rem(500);
+    margin: auto;
+    background: $white;
+    height: calc(100vh - 58px);
+    padding: rem(40 20);
+
+    .c-container-signUp {
+        padding: 10px;
+        text-align: center;
+
+        .sign-up {
+            color: $brand;
+        }
+    }
+}

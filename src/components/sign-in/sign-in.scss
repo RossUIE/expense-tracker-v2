@@ -1,0 +1,29 @@
+
+@import '../../styles/vars.scss';
+@import '../../styles/functions.scss';
+.sign-in {
+    max-width: rem(500);
+    margin: auto;
+    background: $white;
+    padding: rem(20);
+
+    &_logo {
+        margin: auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        
+        svg {
+            fill: $brand
+        }
+    }
+
+    &_title {
+        text-align: center;  
+    }
+
+    .or {
+        margin: rem(20 0);
+        text-align: center;
+    }
+}
