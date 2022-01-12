@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import Backdrop from '../backdrop/backdrop';
-import RocketIcon from '../svg/RocketIcon';
-import SettingsIcon from '../svg/settingsIcon';
+import HamburgerMenuIcon from '../svg/HamburgerMenuIcon/hambuger-menu-icon';
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
-import { auth } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 
 import './header.scss';
@@ -24,14 +22,14 @@ const Header = ({ currentUser, hidden }) => {
         <div className="c-header">
             <div className="c-header_content">
                 <div className="c-header_title">
-                    <RocketIcon/>
-                    <h1>Expense Tracker</h1>
+                    <h1>Expense <span className='title-lower'>Tracker</span></h1>
                 </div>
+
                 {currentUser &&
-                    <div className="c-header_settings" onClick={toggleSidebar}>
-                        <SettingsIcon />
+                    <div className='c-header-menu' onClick={() => toggleSidebar()}>
+                        <HamburgerMenuIcon />
                     </div>
-                }
+                }    
             </div>
             {sidebarActive &&
                 <Backdrop backdropClickHandler={backdropClickHandler}/>

@@ -4,7 +4,7 @@
 
 html, body {
   scroll-behavior: smooth;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Red Hat Display', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -14,6 +14,7 @@ html, body {
   height: 100%;
   color: #616E80;
   width: 100%;
+  background: #d6dae0;
 }
 
 a {

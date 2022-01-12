@@ -16,7 +16,7 @@ $main-color: black;
     background-color: white;
     color: $sub-color;
     font-size: 18px;
-    padding: 10px 10px 10px 5px;
+    padding: 10px 10px 10px 30px;
     display: block;
     width: 100%;
     border: none;
@@ -43,12 +43,22 @@ $main-color: black;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
-    left: 5px;
+    left: 30px;
     top: 10px;
     transition: 300ms ease all;
 
     &.shrink {
       @include shrinkLabel();
     }
+  }
+}
+
+.input-icons {
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  svg {
+    min-width: 20px;
+    height: 20px;
   }
 }

@@ -10,7 +10,6 @@
   font-size: 15px;
   background-color: $brand;
   color: white;
-  text-transform: uppercase;
   font-weight: bolder;
   border: none;
   cursor: pointer;
@@ -26,8 +25,10 @@
   }
 
   &.google-sign-in {
-    background-color: #4285f4;
-    color: white;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid $text;
 
     &:hover {
       background-color: #357ae8;

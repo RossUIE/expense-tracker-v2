@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import FormInput from "../form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
-import RocketAnimation from '../svg/RocketAnimation';
-
+import LoginIllustration from "../svg/LoginIllustration/login-illustration";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import GoogleLogo from '../svg/GoogleLogo/google-logo';
 
 import "./sign-in.scss";
 
@@ -36,11 +36,11 @@ const SignIn = () => {
   };
   return (
     <div className="sign-in">
-      <div className="sign-in_logo">
-        <RocketAnimation/>
+      <div className="sign-in_illustration">
+        <LoginIllustration/>
       </div>
       <div className="sign-in_title">
-        <h2>Sign in with your email and password</h2>
+        <h2>Sign in</h2>
       </div>
       
       <form onSubmit={handleSubmit}>
@@ -61,11 +61,12 @@ const SignIn = () => {
           required
         />
         <div className="buttons">
-          <CustomButton>Sign In</CustomButton>
-          <div className="or">- or -</div>
+          <CustomButton>Login</CustomButton>
+          <div className="or">Or, sign in with...</div>
           <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>
-            Sign In With Google
+            <GoogleLogo/>
           </CustomButton>
+          <p className="no-account">Dont have an account? <span className="brand-text-color">Register</span></p>
         </div>
       </form>
     </div>

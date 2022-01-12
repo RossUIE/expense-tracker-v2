@@ -19,22 +19,7 @@ const SignInAndSignUpPage = ({currentUser}) => {
 
   return (
     <div className="sign-in-and-sign-up">
-      {isLogin ?
-        <SignIn />
-        :
-        <SignUp />
-      }
-
-      <div className="c-container-signUp">
-          {isLogin ?
-            <div>
-                <p>Dont have an account? <span className="sign-up" onClick={switchModehandler}>Sign Up</span></p> 
-                <p className="c-forgot-password_link "><NavLink to="/forgotpassword">Forgot password?</NavLink></p>
-            </div>
-                :
-            <p>Already have an account? <span className="sign-up" onClick={switchModehandler}>Login</span></p> 
-          }
-      </div>
+      <SignIn/>
     </div>
   )
 };
