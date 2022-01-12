@@ -5,16 +5,18 @@ import AccountIcon from "../svg/AccountIcon/account-icon";
 
 import './form-input.scss';
 
-const FormInput = ({ handleChange, label, type, ...otherProps}) => {
+const FormInput = ({ handleChange, label, ...otherProps}) => {
 
     let inputIcon = null;
 
-    if(type === 'email') {
+    if(otherProps.type === 'email') {
         inputIcon = <AtSymbol/>
-    } else if(type === 'password') {
+    } else if(otherProps.type === 'password') {
         inputIcon = <PasswordIcon/>
-    } else if(type === 'text') {
+    } else if(otherProps.type === 'text') {
         inputIcon = <AccountIcon/>
+    } else {
+        return
     }
 
     return (

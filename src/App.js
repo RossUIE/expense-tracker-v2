@@ -34,7 +34,9 @@ function App(props) {
     <div>
       <Header/>
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={HomePage}>
+          {!props.currentUser && <Redirect push to="/signin" />}
+        </Route>
         <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route
           exact
