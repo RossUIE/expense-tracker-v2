@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import FormInput from "../form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
+import GoogleLogo from '../svg/GoogleLogo/google-logo';
+import SignUpIllustration from "../svg/SignUpIllustration/sign-up-illustration";
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { auth, createUserProfileDocument, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import "./sign-up.scss";
 
@@ -55,8 +57,14 @@ const SignUp = () => {
 
   return (
     <div className="sign-up">
-      <h2 className="title">I do not have an account</h2>
-      <span>Sign up with your email and password</span>
+      <div className="sign-up-illustration">
+        <SignUpIllustration />
+      </div>
+      <h2 className="title">Sign up</h2>
+      <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>
+        <GoogleLogo/>
+      </CustomButton>
+      <p className="or">Or, register with email....</p>
       <form className="sign-up-form" onSubmit={handleSubmit}>
         <FormInput
           type="text"
@@ -93,7 +101,7 @@ const SignUp = () => {
           required
         />
 
-        <CustomButton type="submit">SIGN UP</CustomButton>
+        <CustomButton type="submit">Sign up</CustomButton>
       </form>
     </div>
   );

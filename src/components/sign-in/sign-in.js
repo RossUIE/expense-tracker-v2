@@ -61,12 +61,11 @@ const SignIn = () => {
           required
         />
         <div className="buttons">
-          <CustomButton>Login</CustomButton>
+          <CustomButton>Sign in</CustomButton>
           <div className="or">Or, sign in with...</div>
           <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>
             <GoogleLogo/>
           </CustomButton>
-          <p className="no-account">Dont have an account? <span className="brand-text-color">Register</span></p>
         </div>
       </form>
     </div>

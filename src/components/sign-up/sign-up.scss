@@ -1,0 +1,19 @@
+@import '../../styles/vars.scss';
+@import '../../styles/functions.scss';
+
+.sign-up {
+    max-width: rem(500);
+    margin: auto;
+
+    &-illustration {
+        margin: auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .or {
+        margin: rem(40 0);
+        text-align: center;
+    }
+}

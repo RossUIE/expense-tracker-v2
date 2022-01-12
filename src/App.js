@@ -9,6 +9,7 @@ import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
 import Header from "./components/header/header";
+import ForgotPassword from './screens/ForgotPassword/forgot-password';
 
 function App(props) {
   const { setCurrentUser } = props;
@@ -34,7 +35,7 @@ function App(props) {
       <Header/>
       <Switch>
         <Route exact path="/" component={HomePage} />
-
+        <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route
           exact
           path="/signin"
