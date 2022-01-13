@@ -1,23 +1,21 @@
 import React from 'react';
-import { auth } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
-import { Link } from "react-router-dom";
+import ExpensesSummary from '../../components/ExpensesSummary/ExpensesSummary';
+
+import './homepage.scss';
+import AddExpenseForm from '../../components/AddExpenseForm/AddExpenseForm';
+import BottomNav from '../../components/BottomNav/BottomNav';
+
 
 export const Home = ({ currentUser }) => {
     return (
-        <>
-        {currentUser ? (
-            <div className="option" onClick={() => auth.signOut()}>
-              SIGN OUT
-            </div>
-          ) : (
-            <Link className="option" to="/signin">
-              SIGN IN
-            </Link>
-          )}
-          </>
+      <div className='homepage'>
+        <ExpensesSummary />
+        <AddExpenseForm/>
+        <BottomNav/>
+      </div>
     )
 }
 

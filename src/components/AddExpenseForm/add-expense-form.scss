@@ -1,0 +1,58 @@
+@import '../../styles/vars.scss';
+@import '../../styles/functions.scss';
+
+.add-expense-form {
+    width: 100%;
+    background-color: $white;
+    border-radius: rem(20);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    display: flex;
+    flex-direction: column;
+    margin-top: rem(30);
+    padding: rem(20);
+
+    .group {
+        margin: rem(20 0);
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .select-dropdown {
+        position: relative;
+        background-color:$light-gray;
+        margin: rem(10 0 20 0);
+        border-radius: rem(8);
+        select {
+            background-color:$text;
+            max-width: 100%;
+            width: 100%;
+            padding: 14px 24px 14px 10px;
+            border: none;
+            background-color: transparent;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+            appearance: none;
+            color: $text;
+
+            &:active, :focus {
+                outline: none;
+                box-shadow: none;
+            }
+        }
+     
+        &:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            width: 0;
+            height: 0;
+            margin-top: -2px;
+            border-top: 5px solid $brand;
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+        }
+    }
+}

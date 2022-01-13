@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import AtSymbol from "../svg/atSymbol/at-symbol";
 import PasswordIcon from "../svg/PasswordIcon/password-icon";
 import AccountIcon from "../svg/AccountIcon/account-icon";
+import PoundCurrency from '../svg/PoundCurrency/PoundCurrency';
+import PencilIcon from "../svg/PencilIcon/PencilIcon";
 
 import './form-input.scss';
 
@@ -15,8 +17,14 @@ const FormInput = ({ handleChange, label, ...otherProps}) => {
         inputIcon = <PasswordIcon/>
     } else if(otherProps.type === 'text') {
         inputIcon = <AccountIcon/>
+    } else if(otherProps.type === 'number') {
+        inputIcon = <PoundCurrency/>
     } else {
         return
+    }
+
+    if(otherProps.title) {
+        inputIcon = <PencilIcon/>
     }
 
     return (
