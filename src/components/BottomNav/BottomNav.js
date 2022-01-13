@@ -16,24 +16,24 @@ const BottomNav = () => {
     }
     return (
         <div className='bottom-nav'>
-           <div class="nav-item active">
-                <i class="material-icons home-icon">
-                    home
+           <div className="nav-item">
+                <i className="material-icons">
+                    receipt_long
                 </i>
-                <span class="nav-text">Expenses</span>
+                <span className="nav-text">Expenses</span>
             </div>
 
-            <div class="nav-item">
-                <i class="material-icons add-circle-icon">
-                    add
+            <div className="nav-item active">
+                <i className="material-icons">
+                    add_circle_outline
                 </i>
-                <span class="nav-text">Add</span>
+                <span className="nav-text">Add</span>
             </div>
-            <div class="nav-item">
-                <i class="material-icons search-icon">
-                    search
+            <div className="nav-item">
+                <i className="material-icons">
+                    category
                 </i>
-                <span class="nav-text">Categories</span>
+                <span className="nav-text">Categories</span>
             </div>
         </div>
     )

@@ -7,10 +7,12 @@
     left: 0;
     right: 0;
     padding: rem(20);
+    max-width: rem(500);
     background-color: $white;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     border-radius: rem(20 20 0 0);
     display: flex;
+    margin: auto;
 
     .nav-item {
         display: flex;
@@ -42,36 +44,12 @@
         display: inline-block;
     }
     
-    .nav-item.active > .material-icons.home-icon {
+    .nav-item.active > .material-icons {
         color: $brand;
     }
     
-    .material-icons.home-icon ~ .nav-text {
+    .material-icons ~ .nav-text {
         color: $brand;
-    }
-    
-    .nav-item.active > .material-icons.favorite-icon {
-        color: #c9329a;
-    }
-    
-    .material-icons.favorite-icon ~ .nav-text {
-        color: #c9329a;
-    }
-    
-    .nav-item.active > .material-icons.search-icon {
-        color: #e5a023;
-    }
-    
-    .material-icons.search-icon ~ .nav-text {
-        color: #e5a023;
-    }
-    
-    .nav-item.active > .material-icons.person-icon {
-        color: #0091a9;
-    }
-    
-    .material-icons.person-icon ~ .nav-text {
-        color: #0091a9;
     }
 }
 

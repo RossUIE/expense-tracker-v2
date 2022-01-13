@@ -37,7 +37,7 @@ const AddExpenseForm = () => {
             <h3>Add an expense for this month</h3>
             <form onSubmit={handleSubmit}>
                 <FormInput
-                    title
+                    title="true"
                     type="text"
                     name="title"
                     value={title}
