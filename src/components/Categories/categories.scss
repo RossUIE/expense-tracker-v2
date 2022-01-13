@@ -1,0 +1,39 @@
+@import "../../styles/vars.scss";
+@import "../../styles/functions.scss";
+
+.c-categories-tile {
+  background-color: $white;
+  border-radius: rem(20);
+  text-align: left;
+  padding: rem(20);
+  overflow-y: auto;
+  margin: rem(20 0 100 0);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    color: $light-gray;
+    margin-bottom: rem(10);
+  }
+
+  &_content {
+    .category {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid $light-gray;
+      padding: rem(15 0);
+      align-items: center;
+
+      &-title {
+        display: flex;
+        align-items: center;
+
+        i {
+          margin-right: rem(10);
+          width: rem(35);
+        }
+      }
+    }
+  }
+}

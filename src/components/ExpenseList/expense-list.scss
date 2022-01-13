@@ -1,0 +1,31 @@
+@import "../../styles/vars.scss";
+@import "../../styles/functions.scss";
+.expense-list {
+  background-color: $white;
+  border-radius: rem(20);
+  text-align: left;
+  padding: rem(20);
+  overflow-y: auto;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin-top: rem(20);
+
+  &_header {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 2fr 25px 25px;
+    font-size: rem(12);
+    color: $light-gray;
+  }
+
+  &_content {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 2fr 25px 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .c-no-expenses {
+    text-align: center;
+    margin: auto;
+  }
+}
