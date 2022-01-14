@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+import { getFirestore, serverTimestamp } from "firebase/firestore";
 
 const config = {
   apiKey: "AIzaSyCM90V2d6EZzmeGJTNXvFh7rk0pVDao2ow",
@@ -10,7 +11,7 @@ const config = {
   storageBucket: "money-tracker-82cae.appspot.com",
   messagingSenderId: "709246909889",
   appId: "1:709246909889:web:86ca4dcdd4d0a7cf9b0340",
-  measurementId: "G-JWWXNXNDWJ"
+  measurementId: "G-JWWXNXNDWJ",
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -39,10 +40,31 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-firebase.initializeApp(config);
+export const addExpense = async (title, price, category, userAuth) => {
+  if (!userAuth) return;
+
+  const expensesRef = firestore.collection(`userData/expenses/${userAuth.id}`);
+
+  const docData = {
+    title: title,
+    price: price,
+    category: category,
+    createdAt: serverTimestamp(),
+  };
+  try {
+    await expensesRef.add(docData);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+const firebaseApp = firebase.initializeApp(config);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
+export const db = getFirestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });

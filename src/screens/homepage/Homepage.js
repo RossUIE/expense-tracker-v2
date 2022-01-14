@@ -11,18 +11,19 @@ import BottomNav from "../../components/BottomNav/BottomNav";
 import ExpenseList from "../../components/ExpenseList/ExpenseList";
 
 export const Home = ({ currentUser }) => {
-  const [activeTab, setActiveTab] = useState("add");
+  const [activeTab, setActiveTab] = useState("add-nav");
 
-  const handleActiveTab = (id) => {
-    setActiveTab(id);
+  const handleActiveTab = (e) => {
+    const navItem = e.currentTarget.id;
+    setActiveTab(navItem);
   };
 
   return (
     <div className="homepage">
       <ExpensesSummary />
-      {activeTab === "add" && <AddExpenseForm />}
-      {activeTab === "expense" && <ExpenseList />}
-      {activeTab === "category" && <Categories />}
+      {activeTab === "add-nav" && <AddExpenseForm />}
+      {activeTab === "expenses-nav" && <ExpenseList />}
+      {activeTab === "category-nav" && <Categories />}
       <BottomNav handleActiveTab={(id) => handleActiveTab(id)} />
     </div>
   );

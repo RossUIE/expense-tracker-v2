@@ -10,7 +10,6 @@ const BottomNav = (props) => {
       navItems[i].addEventListener("click", () => {
         for (let j = 0; j < navItems.length; j++)
           navItems[j].classList.remove("active");
-        console.log("test");
         navItems[i].classList.add("active");
       });
     }
@@ -20,7 +19,8 @@ const BottomNav = (props) => {
     <div className="bottom-nav">
       <div
         className="nav-item"
-        onClick={() => props.handleActiveTab("expense")}
+        id="expenses-nav"
+        onClick={(e) => props.handleActiveTab(e)}
       >
         <i className="material-icons">receipt_long</i>
         <span className="nav-text">Expenses</span>
@@ -28,14 +28,16 @@ const BottomNav = (props) => {
 
       <div
         className="nav-item active"
-        onClick={() => props.handleActiveTab("add")}
+        id="add-nav"
+        onClick={(e) => props.handleActiveTab(e)}
       >
         <i className="material-icons">add_circle_outline</i>
         <span className="nav-text">Add</span>
       </div>
       <div
         className="nav-item"
-        onClick={() => props.handleActiveTab("category")}
+        id="category-nav"
+        onClick={(e) => props.handleActiveTab(e)}
       >
         <i className="material-icons">category</i>
         <span className="nav-text">Categories</span>

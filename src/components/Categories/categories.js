@@ -75,18 +75,18 @@ export default function Categories(props) {
     });
   };
 
-  const getTotalAmountSpent = () => {
-    let total = 0;
+  // const getTotalAmountSpent = () => {
+  //   let total = 0;
 
-    props.expenses.forEach((expense) => {
-      total += parseFloat(expense.price);
-      return total.toFixed(2);
-    });
+  //   props.expenses.forEach((expense) => {
+  //     total += parseFloat(expense.price);
+  //     return total.toFixed(2);
+  //   });
 
-    var totalFormat = formatMoney(total);
+  //   var totalFormat = formatMoney(total);
 
-    setTotalAmountSpent(totalFormat);
-  };
+  //   setTotalAmountSpent(totalFormat);
+  // };
 
   return (
     <>
