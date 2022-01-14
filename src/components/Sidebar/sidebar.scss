@@ -1,0 +1,79 @@
+@import "../../styles/vars.scss";
+@import "../../styles/functions.scss";
+
+.c-sidebar {
+  background-color: $white;
+  position: fixed;
+  max-width: rem(400);
+  width: 70%;
+  height: 100%;
+  z-index: 9999;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  top: 0;
+  right: 0;
+
+  transform: translateX(100%);
+  transition: transform 0.5s ease-out;
+
+  &.active {
+    transform: translateX(0);
+  }
+
+  .c-side-unauth {
+    padding: rem(20);
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 0 1px rgba(0, 0, 0, 0.5);
+    padding: rem(20);
+
+    .c-title {
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: rem(15);
+        width: rem(30);
+        height: rem(30);
+      }
+    }
+  }
+
+  &-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: rem(50);
+    text-align: center;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      width: 100%;
+      text-align: left;
+
+      a {
+        text-decoration: none;
+      }
+
+      li {
+        padding: rem(20 0);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: rem(20);
+        cursor: pointer;
+        text-decoration: none;
+        color: $text;
+
+        &:hover {
+          background: $light-gray;
+        }
+      }
+    }
+  }
+}
