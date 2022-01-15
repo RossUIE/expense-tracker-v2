@@ -1,7 +1,14 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
-import { getFirestore, serverTimestamp } from "firebase/firestore";
+import {
+  getFirestore,
+  serverTimestamp,
+  getDocs,
+  setDoc,
+  collection,
+  Timestamp,
+} from "firebase/firestore";
 
 const config = {
   apiKey: "AIzaSyCM90V2d6EZzmeGJTNXvFh7rk0pVDao2ow",
@@ -53,6 +60,46 @@ export const addExpense = async (title, price, category, userAuth) => {
   };
   try {
     await expensesRef.add(docData);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const getExpenses = async (userAuth) => {
+  if (!userAuth) return;
+
+  const expenseListRef = firestore.collection("userData/expenses/" + userAuth);
+  let expenses = [];
+
+  const docs = await getDocs(expenseListRef)
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        expenses.push({ ...doc.data(), id: doc.id });
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return expenses;
+};
+
+export const addBudget = async (budget, userAuth) => {
+  if (!userAuth) return;
+
+  console.log(budget);
+  console.log(userAuth.id);
+
+  const budgetRef = firestore.collection(`userData/budget/` + userAuth.id);
+
+  const docData = {
+    budget,
+    createdAt: serverTimestamp(),
+  };
+  try {
+    await budgetRef.add(docData);
     return true;
   } catch (error) {
     console.log(error);

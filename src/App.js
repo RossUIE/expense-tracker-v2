@@ -10,6 +10,7 @@ import { selectCurrentUser } from "./redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
 import Header from "./components/header/header";
 import ForgotPassword from "./screens/ForgotPassword/forgot-password";
+import SetBudget from "./screens/SetBudget/SetBudget";
 
 function App(props) {
   const { setCurrentUser } = props;
@@ -38,6 +39,7 @@ function App(props) {
           {!props.currentUser && <Redirect push to="/signin" />}
         </Route>
         <Route exact path="/forgotpassword" component={ForgotPassword} />
+        <Route exact path="/setbudget" component={SetBudget} />
         <Route
           exact
           path="/signin"

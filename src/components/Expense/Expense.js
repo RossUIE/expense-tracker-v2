@@ -8,7 +8,7 @@ const Expense = (props) => {
     <>
       <div className="c-expense">
         <p className="expense title">{props.title}</p>
-        <p className="dateSubmitted">Added: {props.dateSubmitted}</p>
+        <p className="dateSubmitted">{props.date}</p>
       </div>
 
       <div className="c-expense">
@@ -21,13 +21,13 @@ const Expense = (props) => {
 
       <div className="c-expense edit">
         <button className={"c-edit"}>
-          <EditIcon />
+          <i className="material-icons expense-icons">edit</i>
         </button>
       </div>
 
       <div className="c-expense close">
         <button className={"c-close"}>
-          <TrashIcon />
+          <i className="material-icons expense-icons">delete_outline</i>
         </button>
       </div>
     </>
