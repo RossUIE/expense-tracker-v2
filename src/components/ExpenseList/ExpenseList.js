@@ -19,7 +19,6 @@ const ExpenseList = ({ currentUser }) => {
 
   useEffect(() => {
     getExpenseList();
-    console.log(currentUser.id);
   }, []);
   return (
     <div className="expense-list">

@@ -4,6 +4,7 @@ import "firebase/compat/auth";
 import {
   getFirestore,
   serverTimestamp,
+  getDoc,
   getDocs,
   setDoc,
   collection,
@@ -89,21 +90,38 @@ export const getExpenses = async (userAuth) => {
 export const addBudget = async (budget, userAuth) => {
   if (!userAuth) return;
 
-  console.log(budget);
-  console.log(userAuth.id);
-
-  const budgetRef = firestore.collection(`userData/budget/` + userAuth.id);
+  const budgetRef = firestore
+    .collection("userData")
+    .doc("monthly-budgets")
+    .collection(userAuth.id)
+    .doc("budget");
 
   const docData = {
     budget,
     createdAt: serverTimestamp(),
   };
   try {
-    await budgetRef.add(docData);
-    return true;
+    await setDoc(budgetRef, docData);
   } catch (error) {
     console.log(error);
-    return false;
+  }
+};
+
+export const getBudget = async (userAuth) => {
+  if (!userAuth) return;
+
+  const budgetRef = firestore
+    .collection("userData")
+    .doc("monthly-budgets")
+    .collection(userAuth)
+    .doc("budget");
+
+  const docSnap = await getDoc(budgetRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    console.log("No such document!");
   }
 };
 
