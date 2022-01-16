@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { getExpenses } from "../../firebase/firebase.utils";
 
 import "./progress-bar.scss";
 
-const ProgressBar = () => {
+const ProgressBar = (props) => {
   const [percentage, setPercentage] = useState(0);
   useEffect(() => {
     setTimeout(() => {
-      setPercentage(66);
+      setPercentage(props.value);
     }, 100);
-  }, []);
+  }, [props.value]);
+
   return (
     <div className="progress-bar">
       <CircularProgressbar
-        value={percentage}
-        text={`${percentage}%`}
-        maxValue={1000}
+        value={`${percentage}`}
+        text={`£${props.value}`}
+        maxValue={props.budget}
         styles={{
           path: {
             // Path color
             stroke:
-              parseFloat(percentage) >= parseFloat(1000)
+              parseFloat(percentage) >= parseFloat(props.budget)
                 ? "red"
                 : `rgba(62, 152, 199, ${percentage / 100})`,
             // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'

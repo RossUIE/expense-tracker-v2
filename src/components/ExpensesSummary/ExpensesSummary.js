@@ -13,8 +13,7 @@ const ExpensesSummary = ({ currentUser }) => {
   useEffect(() => {
     const getBudgets = async () => {
       await getBudget(currentUser.id).then((res) => {
-        console.log(res);
-        setBudget(res.budget);
+        setBudget(res?.budget);
       });
     };
     getBudgets();
@@ -24,7 +23,7 @@ const ExpensesSummary = ({ currentUser }) => {
     <div className="expenses-summary">
       <p className="month">January</p>
       <div className="expenses-summary-graph">
-        <ProgressBar />
+        <ProgressBar budget={budget} value={1000} />
       </div>
       {budget ? (
         <p className="spent">£24 of £{budget} spent</p>
