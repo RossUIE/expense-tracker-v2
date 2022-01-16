@@ -5,13 +5,14 @@ import CustomButton from "../../components/custom-button/custom-button";
 import BackButton from "../../components/svg/BackButton/back-button";
 import { NavLink } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
+import "react-toastify/dist/ReactToastify.css";
+import { SuccessToast } from "../../components/ToastMessages/ToastMessages";
 
 import "./forgot-password.scss";
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [hasError, setHasError] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -27,7 +28,8 @@ export const ForgotPassword = () => {
       .sendPasswordResetEmail(email)
       .then(function () {
         setHasError(false);
-        setSuccess(true);
+        setEmail("");
+        return SuccessToast("An email has been sent to your inbox.");
       })
       .catch(function (error) {
         setHasError(true);

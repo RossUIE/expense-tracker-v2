@@ -12,7 +12,7 @@ const ProgressBar = () => {
     }, 100);
   }, []);
   return (
-    <div class="progress-bar">
+    <div className="progress-bar">
       <CircularProgressbar
         value={percentage}
         text={`${percentage}%`}

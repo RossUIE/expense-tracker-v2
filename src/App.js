@@ -11,6 +11,7 @@ import { createStructuredSelector } from "reselect";
 import Header from "./components/header/header";
 import ForgotPassword from "./screens/ForgotPassword/forgot-password";
 import SetBudget from "./screens/SetBudget/SetBudget";
+import { ToastContainer } from "react-toastify";
 
 function App(props) {
   const { setCurrentUser } = props;
@@ -48,6 +49,17 @@ function App(props) {
           }
         />
       </Switch>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

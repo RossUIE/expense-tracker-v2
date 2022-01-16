@@ -8,6 +8,10 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { addBudget } from "../../firebase/firebase.utils";
+import {
+  SuccessToast,
+  ErrorToast,
+} from "../../components//ToastMessages/ToastMessages";
 
 import "./set-budget.scss";
 
@@ -24,10 +28,14 @@ export const SetBudget = ({ currentUser }) => {
 
   const handleBudget = (e) => {
     e.preventDefault();
-    addBudget(budget, currentUser);
-    console.log("yeeoo");
+    if (budget === "" || budget === 0) {
+      return ErrorToast("You must enter a value greater than 0");
+    } else {
+      addBudget(budget, currentUser);
+      setBudget("");
+      return SuccessToast("Your monthly budget has been updated");
+    }
   };
-
   return (
     <div className="set-budget">
       <NavLink to="/">
@@ -52,6 +60,9 @@ export const SetBudget = ({ currentUser }) => {
           required
         />
         <CustomButton onClick={(e) => handleBudget(e)}>Confirm</CustomButton>
+        <NavLink to="/">
+          <CustomButton inverted>Back to your expenses</CustomButton>
+        </NavLink>
       </form>
     </div>
   );

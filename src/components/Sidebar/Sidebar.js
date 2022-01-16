@@ -22,16 +22,12 @@ const Sidebar = (props) => {
           <ul>
             {SidebarData.map((item, index) => {
               return (
-                <li
-                  key={index}
-                  className={item.cName}
-                  onClick={item.clickHandler}
-                >
-                  {item.icon}
-                  <Link to={item.path} onClick={item.clickHandler}>
+                <Link to={item.path} onClick={item.clickHandler} key={index}>
+                  <li className={item.cName} onClick={item.clickHandler}>
+                    {item.icon}
                     <span>{item.title}</span>
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               );
             })}
           </ul>

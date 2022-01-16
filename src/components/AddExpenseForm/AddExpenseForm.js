@@ -5,15 +5,17 @@ import { addExpense } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
+import {
+  SuccessToast,
+  ErrorToast,
+} from "../../components/ToastMessages/ToastMessages";
 
 import "./add-expense-form.scss";
-import SuccessfulUpload from "../SuccessfulUpload/successfulUpload";
 
 const AddExpenseForm = ({ currentUser }) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
-  const [successfulUpload, setSuccessfulUpload] = useState(false);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -39,13 +41,14 @@ const AddExpenseForm = ({ currentUser }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await addExpense(title, price, category, currentUser).then((res) => {
-      clearForm();
-      setSuccessfulUpload(true);
-      setTimeout(() => {
-        setSuccessfulUpload(false);
-      }, 3000);
-    });
+    try {
+      await addExpense(title, price, category, currentUser).then((res) => {
+        clearForm();
+        return SuccessToast("Your expense has been added!");
+      });
+    } catch (error) {
+      return ErrorToast("There has been an error uploading your expense.");
+    }
   };
 
   return (
@@ -95,7 +98,6 @@ const AddExpenseForm = ({ currentUser }) => {
           Clear form
         </CustomButton>
       </form>
-      {successfulUpload && <SuccessfulUpload />}
     </div>
   );
 };
