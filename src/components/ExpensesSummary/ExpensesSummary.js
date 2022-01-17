@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProgressBar from "../ProgressBar/ProgressBar";
-import { getBudget } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
+import { getTotalAmountSpent } from "../../helpers/getTotalAmountSpent";
 
 import "./expenses-summary.scss";
 
-const ExpensesSummary = ({ currentUser }) => {
-  const [budget, setBudget] = useState();
-
-  useEffect(() => {
-    const getBudgets = async () => {
-      await getBudget(currentUser.id).then((res) => {
-        setBudget(res?.budget);
-      });
-    };
-    getBudgets();
-  });
-
+const ExpensesSummary = (props) => {
+  const { budget, expenses } = props;
   return (
     <div className="expenses-summary">
       <p className="month">January</p>
       <div className="expenses-summary-graph">
-        <ProgressBar budget={budget} value={1000} />
+        <ProgressBar
+          budget={budget}
+          value={expenses && getTotalAmountSpent(expenses)}
+        />
       </div>
       {budget ? (
-        <p className="spent">£24 of £{budget} spent</p>
+        <p className="spent">
+          £{expenses && getTotalAmountSpent(expenses)} of £{budget.budget} spent
+        </p>
       ) : (
         <p className="spent">Monthly budget not set</p>
       )}
