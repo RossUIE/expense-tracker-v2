@@ -14,13 +14,14 @@ const ExpensesSummary = (props) => {
       <p className="month">January</p>
       <div className="expenses-summary-graph">
         <ProgressBar
-          budget={budget}
+          budget={budget && budget.budget}
           value={expenses && getTotalAmountSpent(expenses)}
         />
       </div>
       {budget ? (
         <p className="spent">
-          £{expenses && getTotalAmountSpent(expenses)} of £{budget.budget} spent
+          £{expenses && getTotalAmountSpent(expenses)} of £
+          {budget && budget.budget} spent
         </p>
       ) : (
         <p className="spent">Monthly budget not set</p>

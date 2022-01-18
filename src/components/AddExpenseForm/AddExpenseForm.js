@@ -12,7 +12,7 @@ import {
 
 import "./add-expense-form.scss";
 
-const AddExpenseForm = ({ currentUser }) => {
+const AddExpenseForm = ({ currentUser, userExpenses }) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
@@ -43,6 +43,7 @@ const AddExpenseForm = ({ currentUser }) => {
     event.preventDefault();
     try {
       await addExpense(title, price, category, currentUser).then((res) => {
+        userExpenses();
         clearForm();
         return SuccessToast("Your expense has been added!");
       });

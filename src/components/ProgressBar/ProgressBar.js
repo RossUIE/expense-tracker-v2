@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { getExpenses } from "../../firebase/firebase.utils";
 
 import "./progress-bar.scss";
 
