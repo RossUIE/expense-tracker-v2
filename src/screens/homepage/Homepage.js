@@ -58,7 +58,7 @@ export const Home = ({ currentUser }) => {
         <AddExpenseForm userExpenses={() => getUserExpenses()} />
       )}
       {activeTab === "expenses-nav" && <ExpenseList />}
-      {activeTab === "category-nav" && <Categories />}
+      {activeTab === "category-nav" && <Categories expenses={expenses} />}
       <BottomNav handleActiveTab={(id) => handleActiveTab(id)} />
     </div>
   );

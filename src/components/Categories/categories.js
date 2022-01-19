@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { getTotalAmountSpent } from "../../helpers/getTotalAmountSpent";
 // import { DateHelper } from "../../Helpers/DateHelper/DateHelper";
 
 import "./categories.scss";
@@ -38,55 +39,35 @@ export default function Categories(props) {
   };
 
   useEffect(() => {
-    // getTotalAmountSpent();
+    setTotalAmountSpent(getTotalAmountSpent(props.expenses));
   }, [props.expenses]);
 
-  //   const filteredExpensesCount = props.expenses.map((current) => {
-  //     if (current.category === "Groceries") {
-  //       CATEGORY_BUCKETS.Groceries.data.push(current);
-  //       CATEGORY_BUCKETS.Groceries.total += parseFloat(current.price);
-  //     } else if (current.category === "Online Shopping") {
-  //       CATEGORY_BUCKETS.onlineShopping.data.push(current);
-  //       CATEGORY_BUCKETS.onlineShopping.total += parseFloat(current.price);
-  //     } else if (current.category === "Fuel") {
-  //       CATEGORY_BUCKETS.fuel.data.push(current);
-  //       CATEGORY_BUCKETS.fuel.total += parseFloat(current.price);
-  //     } else if (current.category === "Bills") {
-  //       CATEGORY_BUCKETS.bills.data.push(current);
-  //       CATEGORY_BUCKETS.bills.total += parseFloat(current.price);
-  //     } else if (current.category === "Eating Out") {
-  //       CATEGORY_BUCKETS.eatingOut.data.push(current);
-  //       CATEGORY_BUCKETS.eatingOut.total += parseFloat(current.price);
-  //     } else if (current.category === "Savings") {
-  //       CATEGORY_BUCKETS.savings.data.push(current);
-  //       CATEGORY_BUCKETS.savings.total += parseFloat(current.price);
-  //     } else if (current.category === "Other") {
-  //       CATEGORY_BUCKETS.other.data.push(current);
-  //       CATEGORY_BUCKETS.other.total += parseFloat(current.price);
-  //     } else {
-  //       return null;
-  //     }
-  //   });
-
-  const formatMoney = (price) => {
-    return price.toLocaleString("en", {
-      useGrouping: false,
-      minimumFractionDigits: 2,
-    });
-  };
-
-  // const getTotalAmountSpent = () => {
-  //   let total = 0;
-
-  //   props.expenses.forEach((expense) => {
-  //     total += parseFloat(expense.price);
-  //     return total.toFixed(2);
-  //   });
-
-  //   var totalFormat = formatMoney(total);
-
-  //   setTotalAmountSpent(totalFormat);
-  // };
+  const filteredExpensesCount = props.expenses.map((current) => {
+    if (current.category === "Groceries") {
+      CATEGORY_BUCKETS.Groceries.data.push(current);
+      CATEGORY_BUCKETS.Groceries.total += parseFloat(current.price);
+    } else if (current.category === "Online Shopping") {
+      CATEGORY_BUCKETS.onlineShopping.data.push(current);
+      CATEGORY_BUCKETS.onlineShopping.total += parseFloat(current.price);
+    } else if (current.category === "Fuel") {
+      CATEGORY_BUCKETS.fuel.data.push(current);
+      CATEGORY_BUCKETS.fuel.total += parseFloat(current.price);
+    } else if (current.category === "Bills") {
+      CATEGORY_BUCKETS.bills.data.push(current);
+      CATEGORY_BUCKETS.bills.total += parseFloat(current.price);
+    } else if (current.category === "Eating Out") {
+      CATEGORY_BUCKETS.eatingOut.data.push(current);
+      CATEGORY_BUCKETS.eatingOut.total += parseFloat(current.price);
+    } else if (current.category === "Savings") {
+      CATEGORY_BUCKETS.savings.data.push(current);
+      CATEGORY_BUCKETS.savings.total += parseFloat(current.price);
+    } else if (current.category === "Other") {
+      CATEGORY_BUCKETS.other.data.push(current);
+      CATEGORY_BUCKETS.other.total += parseFloat(current.price);
+    } else {
+      return null;
+    }
+  });
 
   return (
     <>
