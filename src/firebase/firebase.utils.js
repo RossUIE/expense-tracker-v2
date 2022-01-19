@@ -6,6 +6,8 @@ import {
   serverTimestamp,
   getDoc,
   getDocs,
+  doc,
+  deleteDoc,
   setDoc,
   collection,
   Timestamp,
@@ -85,6 +87,16 @@ export const getExpenses = async (userAuth) => {
     });
 
   return expenses;
+};
+
+export const deleteExpense = async (userAuth, expenseId) => {
+  if (!userAuth) return;
+
+  await deleteDoc(doc(db, "userData", "expenses", userAuth, expenseId))
+    .then((res) => {
+      console.log("deleted", expenseId);
+    })
+    .catch(console.error);
 };
 
 export const addBudget = async (budget, userAuth) => {

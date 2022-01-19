@@ -26,7 +26,10 @@ const Expense = (props) => {
       </div>
 
       <div className="c-expense close">
-        <button className={"c-close"}>
+        <button
+          className={"c-close"}
+          onClick={() => props.deleteModal(props.id)}
+        >
           <i className="material-icons expense-icons">delete_outline</i>
         </button>
       </div>

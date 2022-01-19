@@ -1,0 +1,51 @@
+@import "../../styles/vars.scss";
+@import "../../styles/functions.scss";
+
+.delete-modal {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  & > div {
+    width: 375px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: rem(20);
+    background: white;
+  }
+
+  &-content {
+    border-radius: rem(20);
+    text-align: center;
+
+    h3 {
+      font-weight: 600;
+    }
+
+    &_illustration {
+      margin: auto;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      margin-top: rem(20);
+    }
+  }
+}

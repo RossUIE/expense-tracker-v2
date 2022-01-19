@@ -24,7 +24,21 @@
     text-overflow: ellipsis;
   }
 
-  .c-no-expenses {
+  .no-expenses {
+    width: 100%;
+    position: relative;
+
+    &-illustration {
+      margin: auto;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: rem(20 0);
+
+      svg {
+        width: 100%;
+      }
+    }
     text-align: center;
     margin: auto;
   }
