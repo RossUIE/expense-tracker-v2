@@ -14,14 +14,14 @@ import {
 } from "firebase/firestore";
 
 const config = {
-  apiKey: "AIzaSyCM90V2d6EZzmeGJTNXvFh7rk0pVDao2ow",
-  authDomain: "money-tracker-82cae.firebaseapp.com",
-  databaseURL: "https://money-tracker-82cae.firebaseio.com",
-  projectId: "money-tracker-82cae",
-  storageBucket: "money-tracker-82cae.appspot.com",
-  messagingSenderId: "709246909889",
-  appId: "1:709246909889:web:86ca4dcdd4d0a7cf9b0340",
-  measurementId: "G-JWWXNXNDWJ",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
