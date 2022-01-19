@@ -8,6 +8,7 @@ import { getBudget, getExpenses } from "../../firebase/firebase.utils";
 import AddExpenseForm from "../../components/AddExpenseForm/AddExpenseForm";
 import BottomNav from "../../components/BottomNav/BottomNav";
 import ExpenseList from "../../components/ExpenseList/ExpenseList";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 import "./homepage.scss";
 
@@ -15,6 +16,7 @@ export const Home = ({ currentUser }) => {
   const [activeTab, setActiveTab] = useState("add-nav");
   const [budget, setBudget] = useState();
   const [expenses, setExpenses] = useState();
+  const [query, setQuery] = useState("");
 
   const handleActiveTab = (e) => {
     const navItem = e.currentTarget.id;
@@ -43,6 +45,18 @@ export const Home = ({ currentUser }) => {
     }
   };
 
+  const getSearchQuery = (query) => {
+    setQuery(query);
+  };
+
+  let filteredExpenses = expenses;
+
+  if (query) {
+    filteredExpenses = expenses?.filter((expense) => {
+      return expense.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
+  }
+
   useEffect(() => {
     getUserBudgets();
   }, [currentUser.id]);
@@ -57,7 +71,15 @@ export const Home = ({ currentUser }) => {
       {activeTab === "add-nav" && (
         <AddExpenseForm userExpenses={() => getUserExpenses()} />
       )}
-      {activeTab === "expenses-nav" && <ExpenseList />}
+      {activeTab === "expenses-nav" && (
+        <>
+          <SearchBar queryValue={getSearchQuery} />
+          <ExpenseList
+            expenses={filteredExpenses}
+            getUserExpenses={getUserExpenses}
+          />
+        </>
+      )}
       {activeTab === "category-nav" && <Categories expenses={expenses} />}
       <BottomNav handleActiveTab={(id) => handleActiveTab(id)} />
     </div>

@@ -1,6 +1,4 @@
 import React from "react";
-import TrashIcon from "../svg/TrashIcon/TrashIcon";
-import EditIcon from "../svg/EditIcon/EditIcon";
 import "./expense.scss";
 
 const Expense = (props) => {
@@ -28,7 +26,7 @@ const Expense = (props) => {
       <div className="c-expense close">
         <button
           className={"c-close"}
-          onClick={() => props.deleteModal(props.id)}
+          onClick={() => props.deleteModal(props.id, props.title)}
         >
           <i className="material-icons expense-icons">delete_outline</i>
         </button>

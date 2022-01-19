@@ -44,6 +44,20 @@
       justify-content: center;
     }
 
+    &_header {
+      display: flex;
+      justify-content: flex-end;
+
+      .close-icon {
+        cursor: pointer;
+
+        &:hover {
+          color: $brand;
+          transition: ease-in-out 0.1s all;
+        }
+      }
+    }
+
     button {
       margin-top: rem(20);
     }

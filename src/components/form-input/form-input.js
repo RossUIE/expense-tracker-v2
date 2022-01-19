@@ -21,6 +21,10 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
     inputIcon = <i className="material-icons">receipt_long</i>;
   }
 
+  if (otherProps.search) {
+    inputIcon = <i className="material-icons">search</i>;
+  }
+
   return (
     <div className="group">
       <div className="input-icons">{inputIcon}</div>

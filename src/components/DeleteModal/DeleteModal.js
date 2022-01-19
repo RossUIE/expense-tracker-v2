@@ -14,10 +14,17 @@ const DeleteModal = ({
   return (
     <>
       <div className={active ? `delete-modal active` : "delete-modal"}>
-        <div className="delete-modal-header">
-          <div className="modal-close">X</div>
-        </div>
         <div className="delete-modal-content">
+          <div className="delete-modal-content_header">
+            <div className="modal-close">
+              <i
+                className="material-icons close-icon"
+                onClick={() => toggleDeleteModal()}
+              >
+                cancel
+              </i>
+            </div>
+          </div>
           <div className="delete-modal-content_illustration">
             <DeleteModalIllustration />
           </div>

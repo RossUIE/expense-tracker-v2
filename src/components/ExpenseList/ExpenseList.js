@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Expense from "../Expense/Expense";
-import { getExpenses, deleteExpense } from "../../firebase/firebase.utils";
+import { deleteExpense } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
@@ -11,20 +11,15 @@ import NoDataIllustration from "../svg/NoDataIllustration/NoDataIllustration";
 
 import "./expense-list.scss";
 
-const ExpenseList = ({ currentUser }) => {
-  const [expenses, setExpenses] = useState();
+const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
   const [deleteSuccessful, setDeleteSuccessful] = useState(false);
   const [expenseId, setExpenseId] = useState(null);
+  const [expenseDeleteTitle, setExpenseDeleteTitle] = useState("");
 
-  const getExpenseList = async () => {
-    await getExpenses(currentUser.id).then((res) => {
-      setExpenses(res);
-    });
-  };
-
-  const toggleDeleteModal = (id) => {
+  const toggleDeleteModal = (id, title) => {
     setDeleteSuccessful((previousValue) => !previousValue);
     setExpenseId(id);
+    setExpenseDeleteTitle(title);
   };
 
   const deleteUserExpense = async () => {
@@ -32,7 +27,7 @@ const ExpenseList = ({ currentUser }) => {
       await deleteExpense(currentUser.id, expenseId)
         .then((res) => {
           setDeleteSuccessful(true);
-          getExpenseList();
+          getUserExpenses();
           toggleDeleteModal();
           return SuccessToast("Your expense has been deleted.");
         })
@@ -44,10 +39,6 @@ const ExpenseList = ({ currentUser }) => {
       );
     }
   };
-
-  useEffect(() => {
-    getExpenseList();
-  }, []);
   return (
     <>
       <div className="expense-list">
@@ -63,7 +54,7 @@ const ExpenseList = ({ currentUser }) => {
               : "no-expense_content"
           }
         >
-          {expenses?.length != 0 ? (
+          {expenses?.length !== 0 ? (
             expenses?.map((expense) => {
               return (
                 <Expense
@@ -90,7 +81,7 @@ const ExpenseList = ({ currentUser }) => {
         </div>
       </div>
       <DeleteModal
-        title={"test"}
+        title={expenseDeleteTitle}
         active={deleteSuccessful}
         deleteUserExpense={deleteUserExpense}
         toggleDeleteModal={toggleDeleteModal}
