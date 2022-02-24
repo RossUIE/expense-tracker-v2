@@ -12,6 +12,7 @@ import Header from "./components/header/header";
 import ForgotPassword from "./screens/ForgotPassword/forgot-password";
 import SetBudget from "./screens/SetBudget/SetBudget";
 import { ToastContainer } from "react-toastify";
+import ManageAccount from "./screens/ManageAccount/ManageAccount";
 
 function App(props) {
   const { setCurrentUser } = props;
@@ -48,6 +49,7 @@ function App(props) {
             props.currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
           }
         />
+        <Route exact path="/manage" component={ManageAccount} />
       </Switch>
       <ToastContainer
         position="top-center"
