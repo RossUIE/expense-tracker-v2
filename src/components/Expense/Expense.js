@@ -18,7 +18,12 @@ const Expense = (props) => {
       </div>
 
       <div className="c-expense edit">
-        <button className={"c-edit"}>
+        <button
+          className={"c-edit"}
+          onClick={() =>
+            props.addModal(props.id, props.title, props.price, props.category)
+          }
+        >
           <i className="material-icons expense-icons">edit</i>
         </button>
       </div>

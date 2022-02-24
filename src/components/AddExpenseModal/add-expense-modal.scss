@@ -1,0 +1,102 @@
+@import "../../styles/vars.scss";
+@import "../../styles/functions.scss";
+
+.add-modal {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.25);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  & > div {
+    width: 375px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: rem(20);
+    background: white;
+  }
+
+  &-content {
+    border-radius: rem(20);
+
+    h3 {
+      font-weight: 600;
+      text-align: center;
+    }
+
+    &_illustration {
+      margin: auto;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    &_header {
+      display: flex;
+      justify-content: flex-end;
+
+      .close-icon {
+        cursor: pointer;
+
+        &:hover {
+          color: $brand;
+          transition: ease-in-out 0.1s all;
+        }
+      }
+    }
+
+    button {
+      margin-top: rem(20);
+    }
+  }
+  .select-dropdown {
+    position: relative;
+    background-color: $light-gray;
+    margin: rem(10 0 20 0);
+    border-radius: rem(8);
+    select {
+      background-color: $text;
+      max-width: 100%;
+      width: 100%;
+      padding: 14px 24px 14px 10px;
+      border: none;
+      background-color: transparent;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      color: $text;
+
+      &:active,
+      :focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      width: 0;
+      height: 0;
+      margin-top: -2px;
+      border-top: 5px solid $brand;
+      border-right: 5px solid transparent;
+      border-left: 5px solid transparent;
+    }
+  }
+}

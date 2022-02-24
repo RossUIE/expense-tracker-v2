@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Expense from "../Expense/Expense";
-import { deleteExpense } from "../../firebase/firebase.utils";
+import { deleteExpense, editExpense } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
@@ -10,16 +10,56 @@ import { SuccessToast, ErrorToast } from "../ToastMessages/ToastMessages";
 import NoDataIllustration from "../svg/NoDataIllustration/NoDataIllustration";
 
 import "./expense-list.scss";
+import AddExpenseModal from "../AddExpenseModal/AddExpenseModal";
 
 const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
   const [deleteSuccessful, setDeleteSuccessful] = useState(false);
   const [expenseId, setExpenseId] = useState(null);
-  const [expenseDeleteTitle, setExpenseDeleteTitle] = useState("");
+  const [expenseTitle, setExpenseTitle] = useState("");
+  const [expensePrice, setExpensePrice] = useState("");
+  const [expenseCategory, setExpenseCategory] = useState("");
+
+  const [addSuccessful, setAddSuccessful] = useState(false);
 
   const toggleDeleteModal = (id, title) => {
     setDeleteSuccessful((previousValue) => !previousValue);
     setExpenseId(id);
-    setExpenseDeleteTitle(title);
+    setExpenseTitle(title);
+  };
+
+  const toggleAddModal = (id, title, price, category) => {
+    setAddSuccessful((previousValue) => !previousValue);
+    setExpenseId(id);
+    setExpenseTitle(title);
+    setExpensePrice(price);
+    setExpenseCategory(category);
+  };
+
+  const editUserExpense = async (
+    e,
+    editedTitle,
+    editedPrice,
+    editedCategory
+  ) => {
+    e.preventDefault();
+    try {
+      await editExpense(
+        currentUser.id,
+        editedTitle,
+        editedPrice,
+        editedCategory,
+        expenseId
+      )
+        .then((res) => {
+          setAddSuccessful(true);
+          getUserExpenses();
+          toggleAddModal();
+          return SuccessToast("Your expense has been edited.");
+        })
+        .catch(console.error);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deleteUserExpense = async () => {
@@ -67,6 +107,7 @@ const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
                     expense.createdAt.seconds
                   ).toLocaleDateString()}
                   deleteModal={toggleDeleteModal}
+                  addModal={toggleAddModal}
                 />
               );
             })
@@ -81,10 +122,19 @@ const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
         </div>
       </div>
       <DeleteModal
-        title={expenseDeleteTitle}
+        title={expenseTitle}
         active={deleteSuccessful}
         deleteUserExpense={deleteUserExpense}
         toggleDeleteModal={toggleDeleteModal}
+      />
+
+      <AddExpenseModal
+        title={expenseTitle}
+        price={expensePrice}
+        category={expenseCategory}
+        active={addSuccessful}
+        toggleAddModal={toggleAddModal}
+        editUserExpense={editUserExpense}
       />
     </>
   );

@@ -8,6 +8,7 @@ import {
   getDocs,
   doc,
   deleteDoc,
+  updateDoc,
   setDoc,
   collection,
   Timestamp,
@@ -95,6 +96,28 @@ export const deleteExpense = async (userAuth, expenseId) => {
   await deleteDoc(doc(db, "userData", "expenses", userAuth, expenseId))
     .then((res) => {
       console.log("deleted", expenseId);
+    })
+    .catch(console.error);
+};
+
+export const editExpense = async (
+  userAuth,
+  title,
+  price,
+  category,
+  expenseId
+) => {
+  if (!userAuth) return;
+
+  const docData = {
+    title,
+    price,
+    category,
+  };
+
+  await updateDoc(doc(db, "userData", "expenses", userAuth, expenseId), docData)
+    .then((res) => {
+      console.log("Edited: ", expenseId);
     })
     .catch(console.error);
 };
