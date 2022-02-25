@@ -2,7 +2,6 @@ import React from "react";
 import ProfileIllustration from "../../components/svg/ProfileIllustration/profile-illustration";
 import { NavLink } from "react-router-dom";
 import BackButton from "../../components/svg/BackButton/back-button";
-import { auth } from "../../firebase/firebase.utils";
 
 import "./manage-account.scss";
 import ManageAccountOptions from "../../components/ManageAccountOptions/ManageAccountOptions";
@@ -17,9 +16,6 @@ export const ManageAccount = () => {
       </NavLink>
       <div className="forgot-password-illustration">
         <ProfileIllustration />
-      </div>
-      <div className="manage-account-title">
-        <h1>Manage your account</h1>
       </div>
       <div className="manage-account-content">
         <ManageAccountOptions />

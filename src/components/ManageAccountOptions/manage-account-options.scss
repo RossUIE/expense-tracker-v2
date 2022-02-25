@@ -5,12 +5,9 @@
   .account-option {
     padding: rem(10);
     border-bottom: 1px solid $light-gray;
-
-    &-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     &:hover {
       cursor: pointer;

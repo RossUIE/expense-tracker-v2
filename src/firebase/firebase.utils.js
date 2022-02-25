@@ -13,6 +13,12 @@ import {
   collection,
   Timestamp,
 } from "firebase/firestore";
+import {
+  getAuth,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+} from "firebase/auth";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -158,6 +164,59 @@ export const getBudget = async (userAuth) => {
   } else {
     console.log("No such document!");
   }
+};
+
+export const updateProfile = async (userAuth, data) => {
+  if (!userAuth) return;
+
+  const docData = {
+    displayName: data,
+  };
+
+  await updateDoc(doc(db, "users", userAuth.id), docData)
+    .then((res) => {
+      console.log("Edited User: ", docData);
+    })
+    .catch(console.error);
+};
+
+export const reauth = async (userAuth, userProvidedPassword) => {
+  if (!userAuth) return;
+  const auth = getAuth();
+
+  const credential = EmailAuthProvider.credential(
+    auth.currentUser.email,
+    userProvidedPassword
+  );
+
+  const result = await reauthenticateWithCredential(
+    auth.currentUser,
+    credential
+  )
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      console.log(error.status);
+      return error.code;
+    });
+
+  return result;
+};
+
+export const updateUserPassword = async (userAuth, newPassword) => {
+  if (!userAuth) return;
+  const auth = getAuth();
+
+  const user = auth.currentUser;
+  await updatePassword(user, newPassword)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error.code);
+      return error.code;
+    });
 };
 
 const firebaseApp = firebase.initializeApp(config);

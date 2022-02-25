@@ -13,6 +13,8 @@ import ForgotPassword from "./screens/ForgotPassword/forgot-password";
 import SetBudget from "./screens/SetBudget/SetBudget";
 import { ToastContainer } from "react-toastify";
 import ManageAccount from "./screens/ManageAccount/ManageAccount";
+import Reauthenticate from "./screens/Reauthenticate/Reauthenticate";
+import ChangePassword from "./screens/ChangePassword/ChangePassword";
 
 function App(props) {
   const { setCurrentUser } = props;
@@ -50,6 +52,8 @@ function App(props) {
           }
         />
         <Route exact path="/manage" component={ManageAccount} />
+        <Route exact path="/manage/reauth" component={Reauthenticate} />
+        <Route exact path="/manage/password" component={ChangePassword} />
       </Switch>
       <ToastContainer
         position="top-center"
