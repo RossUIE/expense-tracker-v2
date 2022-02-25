@@ -2,6 +2,12 @@
 @import "../../styles/functions.scss";
 
 .manage-account-options {
+  .passwordOption {
+    &.googleId {
+      pointer-events: none;
+      opacity: 0.4;
+    }
+  }
   .account-option {
     padding: rem(10);
     border-bottom: 1px solid $light-gray;

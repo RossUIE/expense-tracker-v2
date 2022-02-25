@@ -22,11 +22,12 @@ function App(props) {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
-
+        const providerId = userAuth.providerData[0].providerId;
         userRef.onSnapshot((snapShot) => {
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data(),
+            providerId,
           });
         });
       }

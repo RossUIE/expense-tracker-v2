@@ -30,7 +30,7 @@ const ChangePassword = ({ currentUser }) => {
     }
   };
 
-  const handleSubmission = (e) => {
+  const handleSubmission = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       return ErrorToast("Passwords do not match!");
@@ -38,9 +38,18 @@ const ChangePassword = ({ currentUser }) => {
 
     if (password || password !== "") {
       try {
-        const update = updateUserPassword(currentUser, password);
+        const update = await updateUserPassword(currentUser, password).then(
+          (res) => {
+            if (res.success === true) {
+              return SuccessToast(
+                "Your password has been successfully updated."
+              );
+            }
+          }
+        );
       } catch (err) {
         console.log(err);
+        return ErrorToast("Error updating password. Please try again.");
       }
     } else {
       return ErrorToast("Error updating password. Please try again.");

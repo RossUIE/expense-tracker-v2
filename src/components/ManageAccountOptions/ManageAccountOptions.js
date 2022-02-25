@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import AccountOptionEdit from "../AccountOptionEdit/AccountOptionEdit";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "../../redux/user/user.selector";
 
 import "./manage-account-options.scss";
 
-const ManageAccountOptions = () => {
+const ManageAccountOptions = ({ currentUser }) => {
   const [currentOption, setCurrentOption] = useState("");
   const [optionActive, setOptionActive] = useState(false);
   const handleOption = (e) => {
@@ -33,16 +36,28 @@ const ManageAccountOptions = () => {
             <p>Change your profile name</p>
             <i className="material-icons">keyboard_arrow_right</i>
           </div>
-          <NavLink to="/manage/reauth">
-            <div className="account-option" id="password">
-              <p>Change your password</p>
-              <i className="material-icons">keyboard_arrow_right</i>
-            </div>
-          </NavLink>
+          <div
+            className={
+              currentUser?.providerId === "google.com"
+                ? "passwordOption googleId"
+                : "passwordOption"
+            }
+          >
+            <NavLink to="/manage/reauth">
+              <div className="account-option" id="password">
+                <p>Change your password</p>
+                <i className="material-icons">keyboard_arrow_right</i>
+              </div>
+            </NavLink>
+          </div>
         </div>
       )}
     </>
   );
 };
 
-export default ManageAccountOptions;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
+
+export default connect(mapStateToProps)(ManageAccountOptions);

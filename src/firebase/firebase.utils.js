@@ -194,7 +194,7 @@ export const reauth = async (userAuth, userProvidedPassword) => {
     credential
   )
     .then((res) => {
-      return res;
+      return { success: true };
     })
     .catch((error) => {
       console.log(error.status);
@@ -209,14 +209,16 @@ export const updateUserPassword = async (userAuth, newPassword) => {
   const auth = getAuth();
 
   const user = auth.currentUser;
-  await updatePassword(user, newPassword)
-    .then((res) => {
-      console.log(res);
+  const req = await updatePassword(user, newPassword)
+    .then(() => {
+      return { success: true };
     })
     .catch((error) => {
       console.log(error.code);
       return error.code;
     });
+
+  return req;
 };
 
 const firebaseApp = firebase.initializeApp(config);
