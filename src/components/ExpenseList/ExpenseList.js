@@ -10,7 +10,7 @@ import { SuccessToast, ErrorToast } from "../ToastMessages/ToastMessages";
 import NoDataIllustration from "../svg/NoDataIllustration/NoDataIllustration";
 
 import "./expense-list.scss";
-import AddExpenseModal from "../AddExpenseModal/AddExpenseModal";
+import EditExpenseModal from "../EditExpenseModal/EditExpenseModal";
 
 const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
   const [deleteSuccessful, setDeleteSuccessful] = useState(false);
@@ -128,7 +128,7 @@ const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
         toggleDeleteModal={toggleDeleteModal}
       />
 
-      <AddExpenseModal
+      <EditExpenseModal
         title={expenseTitle}
         price={expensePrice}
         category={expenseCategory}

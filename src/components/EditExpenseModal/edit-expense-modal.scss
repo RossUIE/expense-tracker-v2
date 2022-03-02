@@ -1,24 +1,7 @@
 @import "../../styles/vars.scss";
 @import "../../styles/functions.scss";
 
-.add-button {
-  background-color: $brand;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: rem(22);
-  margin-left: rem(15);
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    background: $brand-darker;
-    transition: all 0.2s ease;
-  }
-}
-
-.add-modal {
+.edit-modal {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.25);
   top: 0;

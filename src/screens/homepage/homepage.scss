@@ -7,4 +7,12 @@
   background: $light-gray;
   padding: rem(20);
   min-height: calc(100vh - 105px);
+
+  .search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    margin-top: rem(20);
+  }
 }

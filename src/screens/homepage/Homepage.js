@@ -12,12 +12,14 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import Months from "../../components/Months/Months";
 
 import "./homepage.scss";
+import AddExpenseModal from "../../components/AddExpenseModal/AddExpenseModal";
 
 export const Home = ({ currentUser }) => {
   const [activeTab, setActiveTab] = useState("add-nav");
   const [budget, setBudget] = useState();
   const [expenses, setExpenses] = useState();
   const [query, setQuery] = useState("");
+  const [addModalActive, setAddModalActive] = useState(false);
 
   const handleActiveTab = (e) => {
     const navItem = e.currentTarget.id;
@@ -44,6 +46,10 @@ export const Home = ({ currentUser }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const toggleAddModal = () => {
+    setAddModalActive((previousValue) => !previousValue);
   };
 
   const getSearchQuery = (query) => {
@@ -74,7 +80,15 @@ export const Home = ({ currentUser }) => {
       )}
       {activeTab === "expenses-nav" && (
         <>
-          <SearchBar queryValue={getSearchQuery} />
+          <div className="search-container">
+            <SearchBar queryValue={getSearchQuery} />
+            <AddExpenseModal
+              toggleAddModal={toggleAddModal}
+              active={addModalActive}
+              userExpenses={getUserExpenses}
+            />
+          </div>
+
           <Months />
           <ExpenseList
             expenses={filteredExpenses}

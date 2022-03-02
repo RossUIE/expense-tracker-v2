@@ -1,74 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormInput from "../form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
 import Backdrop from "../backdrop/backdrop";
-import { addExpense } from "../../firebase/firebase.utils";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { selectCurrentUser } from "../../redux/user/user.selector";
-import {
-  SuccessToast,
-  ErrorToast,
-} from "../../components/ToastMessages/ToastMessages";
-import monthNames from "../../constants/months";
-import { selectCurrentMonth } from "../../redux/month/month.selector";
 
-import "./add-expense-modal.scss";
-
-const AddExpenseModal = ({
-  active,
+import "./edit-expense-modal.scss";
+const EditExpenseModal = ({
+  title,
+  price,
+  category,
   toggleAddModal,
-  userExpenses,
-  currentUser,
-  month,
+  active,
+  editUserExpense,
 }) => {
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
+  const [editedTitle, setEditedTitle] = useState(title);
+  const [editedPrice, setEditedPrice] = useState(price);
+  const [editedCategory, setEditedCategory] = useState(category);
   const handleChange = (event) => {
     const { value, name } = event.target;
 
     if (name === "title") {
-      setTitle(value);
+      setEditedTitle(value);
     }
 
     if (name === "price") {
-      setPrice(value);
+      setEditedPrice(value);
     }
 
     if (name === "category") {
-      setCategory(value);
+      setEditedCategory(value);
     }
   };
 
   const clearForm = () => {
-    setPrice("");
-    setTitle("");
-    setCategory("");
+    setEditedTitle("");
+    setEditedPrice("");
+    setEditedCategory("");
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await addExpense(title, price, category, currentUser).then((res) => {
-        userExpenses();
-        clearForm();
-        toggleAddModal();
-        return SuccessToast("Your expense has been added!");
-      });
-    } catch (error) {
-      return ErrorToast("There has been an error uploading your expense.");
-    }
-  };
-
+  useEffect(() => {
+    setEditedTitle(title);
+    setEditedPrice(price);
+    setEditedCategory(category);
+  }, [active]);
   return (
     <>
-      <button className="add-button" onClick={() => toggleAddModal()}>
-        <i className="material-icons">add</i>
-      </button>
-      <div className={active ? "add-modal active" : "add-modal"}>
-        <div className="add-modal-content">
-          <div className="add-modal-content_header">
+      <div className={active ? "edit-modal active" : "edit-modal"}>
+        <div className="edit-modal-content">
+          <div className="edit-modal-content_header">
             <div className="modal-close">
               <i
                 className="material-icons close-icon"
@@ -78,16 +56,19 @@ const AddExpenseModal = ({
               </i>
             </div>
           </div>
-          <h3>Add expense for {monthNames[month.month]}</h3>
+
           <form
             className="modal-form"
-            onSubmit={(e) => handleSubmit(e, title, price, category)}
+            onSubmit={(e) =>
+              editUserExpense(e, editedTitle, editedPrice, editedCategory)
+            }
           >
+            <h3>Edit expense '{title}'</h3>
             <FormInput
               title="true"
               type="text"
               name="title"
-              value={title}
+              value={editedTitle ? editedTitle : ""}
               handleChange={handleChange}
               label={"Title"}
               required
@@ -96,7 +77,7 @@ const AddExpenseModal = ({
             <FormInput
               type="number"
               name="price"
-              value={price}
+              value={editedPrice ? editedPrice : ""}
               handleChange={handleChange}
               label={"Price"}
               required
@@ -107,7 +88,7 @@ const AddExpenseModal = ({
                 id="category"
                 onChange={handleChange}
                 name="category"
-                value={category}
+                value={editedCategory ? editedCategory : ""}
               >
                 <option>Please Select</option>
                 <option>Groceries</option>
@@ -133,9 +114,4 @@ const AddExpenseModal = ({
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  month: selectCurrentMonth,
-});
-
-export default connect(mapStateToProps)(AddExpenseModal);
+export default EditExpenseModal;
