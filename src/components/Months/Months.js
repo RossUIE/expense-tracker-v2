@@ -1,12 +1,25 @@
 import React, { useEffect, useState, useRef } from "react";
 import ScrollContainer from "react-indiana-drag-scroll";
 import monthNames from "../../constants/months";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentMonth } from "../../redux/month/month.selector";
+import { setMonth } from "../../redux/month/month.actions";
 
 import "./months.scss";
 
-const Months = () => {
+const Months = ({ month, setMonth }) => {
   const container = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(11);
+
+  useEffect(() => {
+    if (container.current) {
+      container.current.children[month.month].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
+  }, [month]);
   return (
     <div className="months">
       <ScrollContainer
@@ -17,8 +30,8 @@ const Months = () => {
         {monthNames.map((el, i) => (
           <div
             key={i}
-            className={`row ${i === activeIndex ? "active" : "inactive"}`}
-            // onClick={(e) => getMonth(i, e)}
+            className={`row ${i === month.month ? "active" : "inactive"}`}
+            onClick={(e) => setMonth(i)}
           >
             {el}
           </div>
@@ -28,4 +41,12 @@ const Months = () => {
   );
 };
 
-export default Months;
+const mapStateToProps = createStructuredSelector({
+  month: selectCurrentMonth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setMonth: (month) => dispatch(setMonth(month)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Months);
