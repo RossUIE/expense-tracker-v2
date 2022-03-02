@@ -3,6 +3,12 @@ import { auth } from "../../firebase/firebase.utils";
 
 export const SidebarData = [
   {
+    title: "My Expenses",
+    path: "/",
+    icon: <i className="material-icons">receipt_long</i>,
+    cName: "manage-link",
+  },
+  {
     title: "Manage Account",
     path: "/manage",
     icon: <i className="material-icons">person_outline</i>,

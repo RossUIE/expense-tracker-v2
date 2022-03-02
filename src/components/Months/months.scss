@@ -1,0 +1,33 @@
+@import "../../styles/vars.scss";
+@import "../../styles/functions.scss";
+.row {
+  min-width: 100px;
+  padding: rem(15);
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px 0 rgba(228, 7, 7, 0);
+  cursor: pointer;
+  text-align: center;
+
+  &.active {
+    background: $brand;
+    color: $white;
+
+    &:first {
+      border-radius: rem(20 0 0 0);
+    }
+    &:last-child {
+      border-radius: rem(0 20 0 0);
+    }
+  }
+}
+
+.container {
+  margin-top: rem(20);
+  background-color: $white;
+  display: flex;
+  align-items: center;
+  border-radius: rem(20 20 0 0);
+  border-bottom: 1px solid $light-gray;
+  box-shadow: 0 3px -6px rgba(0, 0, 0, 0.16), 0 3px -6px rgba(0, 0, 0, 0.23);
+}

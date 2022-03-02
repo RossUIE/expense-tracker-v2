@@ -3,11 +3,11 @@
 
 .c-categories-tile {
   background-color: $white;
-  border-radius: rem(20);
+  border-radius: rem(0 0 20 20);
   text-align: left;
   padding: rem(20);
   overflow-y: auto;
-  margin: rem(20 0 100 0);
+  margin: rem(0 0 100 0);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
   &_header {

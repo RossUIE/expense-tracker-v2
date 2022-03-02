@@ -9,6 +9,7 @@ import AddExpenseForm from "../../components/AddExpenseForm/AddExpenseForm";
 import BottomNav from "../../components/BottomNav/BottomNav";
 import ExpenseList from "../../components/ExpenseList/ExpenseList";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Months from "../../components/Months/Months";
 
 import "./homepage.scss";
 
@@ -74,13 +75,19 @@ export const Home = ({ currentUser }) => {
       {activeTab === "expenses-nav" && (
         <>
           <SearchBar queryValue={getSearchQuery} />
+          <Months />
           <ExpenseList
             expenses={filteredExpenses}
             getUserExpenses={getUserExpenses}
           />
         </>
       )}
-      {activeTab === "category-nav" && <Categories expenses={expenses} />}
+      {activeTab === "category-nav" && (
+        <>
+          <Months />
+          <Categories expenses={expenses} />
+        </>
+      )}
       <BottomNav handleActiveTab={(id) => handleActiveTab(id)} />
     </div>
   );
