@@ -20,12 +20,12 @@ const SearchBar = ({ queryValue }) => {
   return (
     <div className="search-bar">
       <FormInput
+        placeholder={"Search your expenses"}
         search="true"
         type="text"
         name="query"
         value={query}
         handleChange={handleChange}
-        label={"Search your expenses..."}
         onChange={(e) => setQuery(e.target.value)}
         required
       />

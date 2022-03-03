@@ -12,6 +12,7 @@ import {
 } from "../../components/ToastMessages/ToastMessages";
 import monthNames from "../../constants/months";
 import { selectCurrentMonth } from "../../redux/month/month.selector";
+import ExpenseIllustration from "../svg/ExpenseIllustration/ExpenseIllustration";
 
 import "./add-expense-modal.scss";
 
@@ -69,6 +70,9 @@ const AddExpenseModal = ({
       <div className={active ? "add-modal active" : "add-modal"}>
         <div className="add-modal-content">
           <div className="add-modal-content_header">
+            <div className="add-modal_illustration">
+              <ExpenseIllustration />
+            </div>
             <div className="modal-close">
               <i
                 className="material-icons close-icon"
@@ -121,7 +125,7 @@ const AddExpenseModal = ({
                 <option>Other</option>
               </select>
             </div>
-            <CustomButton>Confirm edit</CustomButton>
+            <CustomButton>Add expense</CustomButton>
             <CustomButton inverted onClick={() => clearForm()}>
               Clear form
             </CustomButton>

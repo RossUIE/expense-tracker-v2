@@ -27,3 +27,7 @@ button {
   border: none;
   color: #616e80;
 }
+
+.bold {
+  font-weight: bold;
+}

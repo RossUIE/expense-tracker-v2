@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SetBudgetIllustration from "../../components/svg/SetBudgetIllustration/SetBudgetIllustration";
 import FormInput from "../../components/form-input/form-input";
 import CustomButton from "../../components/custom-button/custom-button";
@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
-import { addBudget } from "../../firebase/firebase.utils";
+import { addBudget, getBudget } from "../../firebase/firebase.utils";
 import {
   SuccessToast,
   ErrorToast,
@@ -17,6 +17,11 @@ import "./set-budget.scss";
 
 export const SetBudget = ({ currentUser }) => {
   const [budget, setBudget] = useState("");
+  const [existingBudget, setExistingBudget] = useState();
+
+  useEffect(() => {
+    getUserBudgets();
+  }, []);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -33,9 +38,21 @@ export const SetBudget = ({ currentUser }) => {
     } else {
       addBudget(budget, currentUser);
       setBudget("");
+      getUserBudgets();
       return SuccessToast("Your monthly budget has been updated");
     }
   };
+  const getUserBudgets = async () => {
+    try {
+      const response = await getBudget(currentUser.id).catch(console.error);
+      if (response) {
+        setExistingBudget(response);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="set-budget">
       <NavLink to="/">
@@ -47,8 +64,11 @@ export const SetBudget = ({ currentUser }) => {
         <SetBudgetIllustration />
       </div>
       <div className="set-budget-title">
-        <h1>Set your monthly budget</h1>
-        <p>Set how much you want to spend each month</p>
+        <h1>Hi {currentUser.displayName}, set your monthly budget.</h1>
+        <p>Set how much you want to spend each month.</p>
+        <p className="bold">
+          Current: £{existingBudget ? existingBudget.budget : "Budget not set"}
+        </p>
       </div>
       <form className="set-budget-content">
         <FormInput

@@ -116,6 +116,9 @@ const AccountOptionEdit = ({ option, handleOptionActive, currentUser }) => {
           <CustomButton onClick={(e) => handleUpdateProfile(e)}>
             Update {option}
           </CustomButton>
+          <NavLink to="/manage" onClick={handleOptionActive()}>
+            <CustomButton inverted>Back</CustomButton>
+          </NavLink>
         </form>
       </div>
     </div>

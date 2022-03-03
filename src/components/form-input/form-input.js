@@ -27,13 +27,17 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
 
   return (
     <div className="group">
-      <div className="input-icons">{inputIcon}</div>
+      <div className={otherProps.search ? "input-icons search" : "input-icons"}>
+        {inputIcon}
+      </div>
       <input className="form-input" onChange={handleChange} {...otherProps} />
       {label ? (
         <label
-          className={`${
-            otherProps.value.length ? "shrink" : ""
-          } form-input-label`}
+          className={
+            otherProps.search
+              ? "search-input"
+              : `${otherProps.value.length ? "shrink" : ""} form-input-label`
+          }
         >
           {label}
         </label>

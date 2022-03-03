@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import FormInput from "../form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
 import Backdrop from "../backdrop/backdrop";
-
+import ExpenseIllustration from "../svg/ExpenseIllustration/ExpenseIllustration";
 import "./edit-expense-modal.scss";
 const EditExpenseModal = ({
   title,
@@ -55,6 +55,9 @@ const EditExpenseModal = ({
                 cancel
               </i>
             </div>
+          </div>
+          <div className="edit-modal-content_illustration">
+            <ExpenseIllustration />
           </div>
 
           <form

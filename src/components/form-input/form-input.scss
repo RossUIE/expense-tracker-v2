@@ -32,10 +32,25 @@ $white: #fdfdfd;
     &:focus ~ .form-input-label {
       @include shrinkLabel();
     }
+    &::placeholder {
+      color: $sub-color;
+      font-size: 16px;
+    }
   }
 
   input[type="password"] {
     letter-spacing: 0.3em;
+  }
+
+  .search-input {
+    color: $sub-color;
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 30px;
+    top: 10px;
+    transition: 300ms ease all;
   }
 
   .form-input-label {
@@ -58,6 +73,11 @@ $white: #fdfdfd;
   position: absolute;
   left: 0;
   bottom: 5px;
+
+  &.search {
+    bottom: 3px;
+    left: 3px;
+  }
   svg {
     min-width: 20px;
     height: 20px;
