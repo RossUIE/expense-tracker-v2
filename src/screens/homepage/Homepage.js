@@ -10,6 +10,7 @@ import BottomNav from "../../components/BottomNav/BottomNav";
 import ExpenseList from "../../components/ExpenseList/ExpenseList";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Months from "../../components/Months/Months";
+import { selectCurrentMonth } from "../../redux/month/month.selector";
 
 import "./homepage.scss";
 import AddExpenseModal from "../../components/AddExpenseModal/AddExpenseModal";
@@ -26,9 +27,11 @@ export const Home = ({ currentUser }) => {
     setActiveTab(navItem);
   };
 
-  const getUserExpenses = async () => {
+  const getUserExpenses = async (month) => {
     try {
-      const response = await getExpenses(currentUser.id).catch(console.error);
+      const response = await getExpenses(currentUser.id, month).catch(
+        console.error
+      );
       if (response) {
         setExpenses(response);
       }
@@ -89,7 +92,7 @@ export const Home = ({ currentUser }) => {
             />
           </div>
 
-          <Months />
+          <Months getExpenses={getUserExpenses} />
           <ExpenseList
             expenses={filteredExpenses}
             getUserExpenses={getUserExpenses}
@@ -98,7 +101,7 @@ export const Home = ({ currentUser }) => {
       )}
       {activeTab === "category-nav" && (
         <>
-          <Months />
+          <Months getExpenses={getUserExpenses} />
           <Categories expenses={expenses} />
         </>
       )}
@@ -109,6 +112,7 @@ export const Home = ({ currentUser }) => {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  month: selectCurrentMonth,
 });
 
 export default connect(mapStateToProps)(Home);

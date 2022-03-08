@@ -8,9 +8,13 @@ import { setMonth } from "../../redux/month/month.actions";
 
 import "./months.scss";
 
-const Months = ({ month, setMonth }) => {
+const Months = ({ month, setMonth, getExpenses }) => {
   const container = useRef(null);
 
+  const handleChange = (month) => {
+    setMonth(month);
+    getExpenses(month);
+  };
   useEffect(() => {
     if (container.current) {
       container.current.children[month.month].scrollIntoView({
@@ -27,13 +31,13 @@ const Months = ({ month, setMonth }) => {
         className="container"
         innerRef={container}
       >
-        {monthNames.map((el, i) => (
+        {monthNames?.map((el, i) => (
           <div
             key={i}
             className={`row ${i === month.month ? "active" : "inactive"}`}
-            onClick={(e) => setMonth(i)}
+            onClick={(e) => handleChange(i)}
           >
-            {el}
+            {el.name}
           </div>
         ))}
       </ScrollContainer>

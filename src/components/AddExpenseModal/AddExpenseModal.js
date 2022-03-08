@@ -51,12 +51,14 @@ const AddExpenseModal = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await addExpense(title, price, category, currentUser).then((res) => {
-        userExpenses();
-        clearForm();
-        toggleAddModal();
-        return SuccessToast("Your expense has been added!");
-      });
+      await addExpense(title, price, category, currentUser, month).then(
+        (res) => {
+          userExpenses(month.month);
+          clearForm();
+          toggleAddModal();
+          return SuccessToast("Your expense has been added!");
+        }
+      );
     } catch (error) {
       return ErrorToast("There has been an error uploading your expense.");
     }
@@ -82,7 +84,7 @@ const AddExpenseModal = ({
               </i>
             </div>
           </div>
-          <h3>Add expense for {monthNames[month.month]}</h3>
+          <h3>Add expense for {monthNames[month.month].name}</h3>
           <form
             className="modal-form"
             onSubmit={(e) => handleSubmit(e, title, price, category)}

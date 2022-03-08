@@ -20,6 +20,8 @@ import {
   EmailAuthProvider,
 } from "firebase/auth";
 
+import { getFirstDayOfMonth, getLastDayOfMonth } from "../helpers/dateHelper";
+
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -57,15 +59,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const addExpense = async (title, price, category, userAuth) => {
+export const addExpense = async (title, price, category, userAuth, month) => {
   if (!userAuth) return;
 
   const expensesRef = firestore.collection(`userData/expenses/${userAuth.id}`);
+
+  const first = getFirstDayOfMonth(month.month);
 
   const docData = {
     title: title,
     price: price,
     category: category,
+    timestamp: month ? first : Timestamp.now().seconds,
     createdAt: serverTimestamp(),
   };
   try {
@@ -77,10 +82,21 @@ export const addExpense = async (title, price, category, userAuth) => {
   }
 };
 
-export const getExpenses = async (userAuth) => {
+export const getExpenses = async (userAuth, selectedMonth) => {
   if (!userAuth) return;
 
-  const expenseListRef = firestore.collection("userData/expenses/" + userAuth);
+  if (selectedMonth === undefined) {
+    const d = new Date();
+    selectedMonth = d.getMonth();
+  }
+
+  const first = getFirstDayOfMonth(selectedMonth);
+  const last = getLastDayOfMonth(selectedMonth);
+
+  const expenseListRef = firestore
+    .collection("userData/expenses/" + userAuth)
+    .where("timestamp", ">=", first)
+    .where("timestamp", "<", last);
   let expenses = [];
 
   const docs = await getDocs(expenseListRef)

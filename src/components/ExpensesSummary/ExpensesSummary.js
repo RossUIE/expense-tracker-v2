@@ -4,14 +4,15 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { getTotalAmountSpent } from "../../helpers/getTotalAmountSpent";
+import { selectCurrentMonth } from "../../redux/month/month.selector";
+import monthNames from "../../constants/months";
 
 import "./expenses-summary.scss";
 
-const ExpensesSummary = (props) => {
-  const { budget, expenses } = props;
+const ExpensesSummary = ({ budget, expenses, month }) => {
   return (
     <div className="expenses-summary">
-      <p className="month">January</p>
+      <p className="month">{monthNames[month.month].name}</p>
       <div className="expenses-summary-graph">
         <ProgressBar
           budget={budget && budget.budget}
@@ -32,6 +33,7 @@ const ExpensesSummary = (props) => {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  month: selectCurrentMonth,
 });
 
 export default connect(mapStateToProps)(ExpensesSummary);
