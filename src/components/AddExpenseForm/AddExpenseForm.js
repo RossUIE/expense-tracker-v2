@@ -11,11 +11,16 @@ import {
 } from "../../components/ToastMessages/ToastMessages";
 
 import "./add-expense-form.scss";
+import FormSelect from "../form-select/form-select";
+import { expenseOptions } from "../../resources/expenseOptions";
 
 const AddExpenseForm = ({ currentUser, userExpenses }) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
+  const [titleError, setTitleError] = useState(false);
+  const [priceError, setPriceError] = useState(false);
+  const [categoryError, setCategoryError] = useState(false);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -42,7 +47,7 @@ const AddExpenseForm = ({ currentUser, userExpenses }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await addExpense(title, price, category, currentUser).then((res) => {
+      await addExpense(title, price, category, currentUser, "").then((res) => {
         userExpenses();
         clearForm();
         return SuccessToast("Your expense has been added!");
@@ -74,26 +79,13 @@ const AddExpenseForm = ({ currentUser, userExpenses }) => {
           label={"Price"}
           required
         />
-        <label htmlFor="category">Category:</label>
-        <div className="select-dropdown">
-          <select
-            id="category"
-            onChange={handleChange}
-            name="category"
-            value={category}
-          >
-            <option>Please Select</option>
-            <option>Groceries</option>
-            <option>Online Shopping</option>
-            <option>Fuel</option>
-            <option>Bills</option>
-            <option>Eating Out</option>
-            <option>Savings</option>
-            <option>Retail</option>
-            <option>Gifts</option>
-            <option>Other</option>
-          </select>
-        </div>
+        <FormSelect
+          name="category"
+          onChange={handleChange}
+          value={category}
+          options={expenseOptions}
+          required
+        />
         <CustomButton>Add expense</CustomButton>
         <CustomButton inverted onClick={() => clearForm()}>
           Clear form

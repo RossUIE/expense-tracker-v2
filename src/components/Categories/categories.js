@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import monthNames from "../../constants/months";
 import { getTotalAmountSpent } from "../../helpers/getTotalAmountSpent";
-// import { DateHelper } from "../../Helpers/DateHelper/DateHelper";
+import { selectCurrentMonth } from "../../redux/month/month.selector";
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
 
 import "./categories.scss";
 
-export default function Categories(props) {
+const Categories = ({ month, expenses }) => {
   const [totalAmountSpent, setTotalAmountSpent] = useState(0);
 
   const CATEGORY_BUCKETS = {
@@ -39,10 +42,10 @@ export default function Categories(props) {
   };
 
   useEffect(() => {
-    setTotalAmountSpent(getTotalAmountSpent(props.expenses));
-  }, [props.expenses]);
+    setTotalAmountSpent(getTotalAmountSpent(expenses));
+  }, [expenses]);
 
-  const filteredExpensesCount = props.expenses.map((current) => {
+  const filteredExpensesCount = expenses.map((current) => {
     if (current.category === "Groceries") {
       CATEGORY_BUCKETS.Groceries.data.push(current);
       CATEGORY_BUCKETS.Groceries.total += parseFloat(current.price);
@@ -74,7 +77,7 @@ export default function Categories(props) {
       <div className="c-categories-tile">
         <div className="c-categories-tile_header">
           {/* <p>SPENDING FOR {DateHelper(props.chosenMonth)}</p> */}
-          <p>Spending for January</p>
+          <p>Spending for {monthNames[month.month].name}</p>
           <p>£{totalAmountSpent}</p>
         </div>
         <div className="c-categories-tile_content">
@@ -145,4 +148,10 @@ export default function Categories(props) {
       </div>
     </>
   );
-}
+};
+
+const mapStateToProps = createStructuredSelector({
+  month: selectCurrentMonth,
+});
+
+export default connect(mapStateToProps)(Categories);

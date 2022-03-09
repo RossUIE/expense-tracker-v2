@@ -64,13 +64,25 @@ export const addExpense = async (title, price, category, userAuth, month) => {
 
   const expensesRef = firestore.collection(`userData/expenses/${userAuth.id}`);
 
-  const first = getFirstDayOfMonth(month.month);
+  const date = new Date();
+  const getMonth = date.getMonth();
+
+  let timestamp;
+  const first = getFirstDayOfMonth(month);
+
+  if (getMonth === month) {
+    timestamp = Timestamp.now().seconds;
+  } else if (month) {
+    timestamp = first;
+  } else {
+    timestamp = Timestamp.now().seconds;
+  }
 
   const docData = {
     title: title,
     price: price,
     category: category,
-    timestamp: month ? first : Timestamp.now().seconds,
+    timestamp: timestamp,
     createdAt: serverTimestamp(),
   };
   try {

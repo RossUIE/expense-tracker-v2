@@ -3,6 +3,8 @@ import FormInput from "../form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
 import Backdrop from "../backdrop/backdrop";
 import ExpenseIllustration from "../svg/ExpenseIllustration/ExpenseIllustration";
+import FormSelect from "../form-select/form-select";
+import { expenseOptions } from "../../resources/expenseOptions";
 import "./edit-expense-modal.scss";
 const EditExpenseModal = ({
   title,
@@ -85,26 +87,14 @@ const EditExpenseModal = ({
               label={"Price"}
               required
             />
-            <label htmlFor="category">Category:</label>
-            <div className="select-dropdown">
-              <select
-                id="category"
-                onChange={handleChange}
-                name="category"
-                value={editedCategory ? editedCategory : ""}
-              >
-                <option>Please Select</option>
-                <option>Groceries</option>
-                <option>Online Shopping</option>
-                <option>Fuel</option>
-                <option>Bills</option>
-                <option>Eating Out</option>
-                <option>Savings</option>
-                <option>Retail</option>
-                <option>Gifts</option>
-                <option>Other</option>
-              </select>
-            </div>
+
+            <FormSelect
+              name="category"
+              onChange={handleChange}
+              value={editedCategory ? editedCategory : ""}
+              options={expenseOptions}
+              required
+            />
             <CustomButton>Confirm edit</CustomButton>
             <CustomButton inverted onClick={() => clearForm()}>
               Clear form

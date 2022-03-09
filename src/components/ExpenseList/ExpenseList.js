@@ -8,11 +8,12 @@ import { getFormmatedDate } from "../../helpers/dateHelper";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import { SuccessToast, ErrorToast } from "../ToastMessages/ToastMessages";
 import NoDataIllustration from "../svg/NoDataIllustration/NoDataIllustration";
+import { selectCurrentMonth } from "../../redux/month/month.selector";
 
 import "./expense-list.scss";
 import EditExpenseModal from "../EditExpenseModal/EditExpenseModal";
 
-const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
+const ExpenseList = ({ currentUser, expenses, getUserExpenses, month }) => {
   const [deleteSuccessful, setDeleteSuccessful] = useState(false);
   const [expenseId, setExpenseId] = useState(null);
   const [expenseTitle, setExpenseTitle] = useState("");
@@ -52,7 +53,7 @@ const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
       )
         .then((res) => {
           setAddSuccessful(true);
-          getUserExpenses();
+          getUserExpenses(month.month);
           toggleAddModal();
           return SuccessToast("Your expense has been edited.");
         })
@@ -67,7 +68,7 @@ const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
       await deleteExpense(currentUser.id, expenseId)
         .then((res) => {
           setDeleteSuccessful(true);
-          getUserExpenses();
+          getUserExpenses(month.month);
           toggleDeleteModal();
           return SuccessToast("Your expense has been deleted.");
         })
@@ -142,6 +143,7 @@ const ExpenseList = ({ currentUser, expenses, getUserExpenses }) => {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  month: selectCurrentMonth,
 });
 
 export default connect(mapStateToProps)(ExpenseList);

@@ -13,6 +13,8 @@ import {
 import monthNames from "../../constants/months";
 import { selectCurrentMonth } from "../../redux/month/month.selector";
 import ExpenseIllustration from "../svg/ExpenseIllustration/ExpenseIllustration";
+import FormSelect from "../form-select/form-select";
+import { expenseOptions } from "../../resources/expenseOptions";
 
 import "./add-expense-modal.scss";
 
@@ -51,7 +53,7 @@ const AddExpenseModal = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await addExpense(title, price, category, currentUser, month).then(
+      await addExpense(title, price, category, currentUser, month.month).then(
         (res) => {
           userExpenses(month.month);
           clearForm();
@@ -107,26 +109,13 @@ const AddExpenseModal = ({
               label={"Price"}
               required
             />
-            <label htmlFor="category">Category:</label>
-            <div className="select-dropdown">
-              <select
-                id="category"
-                onChange={handleChange}
-                name="category"
-                value={category}
-              >
-                <option>Please Select</option>
-                <option>Groceries</option>
-                <option>Online Shopping</option>
-                <option>Fuel</option>
-                <option>Bills</option>
-                <option>Eating Out</option>
-                <option>Savings</option>
-                <option>Retail</option>
-                <option>Gifts</option>
-                <option>Other</option>
-              </select>
-            </div>
+            <FormSelect
+              name="category"
+              onChange={handleChange}
+              value={category}
+              options={expenseOptions}
+              required
+            />
             <CustomButton>Add expense</CustomButton>
             <CustomButton inverted onClick={() => clearForm()}>
               Clear form
