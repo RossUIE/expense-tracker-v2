@@ -9,6 +9,11 @@ import {
   SuccessToast,
   ErrorToast,
 } from "../../components/ToastMessages/ToastMessages";
+import {
+  ValidateTitle,
+  ValidatePrice,
+  ValidateCategory,
+} from "../../helpers/validateForm";
 
 import "./add-expense-form.scss";
 import FormSelect from "../form-select/form-select";
@@ -21,6 +26,9 @@ const AddExpenseForm = ({ currentUser, userExpenses }) => {
   const [titleError, setTitleError] = useState(false);
   const [priceError, setPriceError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
+  const [titleErrorMessage, setTitleErrorMessage] = useState("");
+  const [priceErrorMessage, setPriceErrorMessage] = useState("");
+  const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -46,14 +54,44 @@ const AddExpenseForm = ({ currentUser, userExpenses }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await addExpense(title, price, category, currentUser, "").then((res) => {
-        userExpenses();
-        clearForm();
-        return SuccessToast("Your expense has been added!");
-      });
-    } catch (error) {
-      return ErrorToast("There has been an error uploading your expense.");
+
+    if (!ValidateTitle(title)) {
+      setTitleError(true);
+      setTitleErrorMessage("Please input a title.");
+    } else {
+      setTitleError(false);
+    }
+
+    if (!ValidatePrice(price)) {
+      setPriceError(true);
+      setPriceErrorMessage("Please input a price.");
+    } else {
+      setPriceError(false);
+    }
+
+    if (!ValidateCategory(category)) {
+      setCategoryError(true);
+      setCategoryErrorMessage("Please select a category.");
+    } else {
+      setCategoryError(false);
+    }
+
+    if (
+      ValidateTitle(title) &&
+      ValidatePrice(price) &&
+      ValidateCategory(category)
+    ) {
+      try {
+        await addExpense(title, price, category, currentUser, "").then(
+          (res) => {
+            userExpenses();
+            clearForm();
+            return SuccessToast("Your expense has been added!");
+          }
+        );
+      } catch (error) {
+        return ErrorToast("There has been an error uploading your expense.");
+      }
     }
   };
 
@@ -68,8 +106,10 @@ const AddExpenseForm = ({ currentUser, userExpenses }) => {
           value={title}
           handleChange={handleChange}
           label={"Title"}
-          required
         />
+        {titleError && (
+          <div className="form-error-message">{titleErrorMessage}</div>
+        )}
 
         <FormInput
           type="number"
@@ -77,8 +117,10 @@ const AddExpenseForm = ({ currentUser, userExpenses }) => {
           value={price}
           handleChange={handleChange}
           label={"Price"}
-          required
         />
+        {priceError && (
+          <div className="form-error-message">{priceErrorMessage}</div>
+        )}
         <FormSelect
           name="category"
           onChange={handleChange}
@@ -86,8 +128,11 @@ const AddExpenseForm = ({ currentUser, userExpenses }) => {
           options={expenseOptions}
           required
         />
+        {categoryError && (
+          <div className="form-error-message">{categoryErrorMessage}</div>
+        )}
         <CustomButton>Add expense</CustomButton>
-        <CustomButton inverted onClick={() => clearForm()}>
+        <CustomButton type="button" inverted onClick={() => clearForm()}>
           Clear form
         </CustomButton>
       </form>

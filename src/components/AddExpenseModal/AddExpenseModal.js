@@ -15,6 +15,11 @@ import { selectCurrentMonth } from "../../redux/month/month.selector";
 import ExpenseIllustration from "../svg/ExpenseIllustration/ExpenseIllustration";
 import FormSelect from "../form-select/form-select";
 import { expenseOptions } from "../../resources/expenseOptions";
+import {
+  ValidateTitle,
+  ValidatePrice,
+  ValidateCategory,
+} from "../../helpers/validateForm";
 
 import "./add-expense-modal.scss";
 
@@ -28,6 +33,13 @@ const AddExpenseModal = ({
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
+  const [titleError, setTitleError] = useState(false);
+  const [priceError, setPriceError] = useState(false);
+  const [categoryError, setCategoryError] = useState(false);
+  const [titleErrorMessage, setTitleErrorMessage] = useState("");
+  const [priceErrorMessage, setPriceErrorMessage] = useState("");
+  const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
+
   const handleChange = (event) => {
     const { value, name } = event.target;
 
@@ -52,17 +64,44 @@ const AddExpenseModal = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await addExpense(title, price, category, currentUser, month.month).then(
-        (res) => {
-          userExpenses(month.month);
-          clearForm();
-          toggleAddModal();
-          return SuccessToast("Your expense has been added!");
-        }
-      );
-    } catch (error) {
-      return ErrorToast("There has been an error uploading your expense.");
+    if (!ValidateTitle(title)) {
+      setTitleError(true);
+      setTitleErrorMessage("Please input a title.");
+    } else {
+      setTitleError(false);
+    }
+
+    if (!ValidatePrice(price)) {
+      setPriceError(true);
+      setPriceErrorMessage("Please input a price.");
+    } else {
+      setPriceError(false);
+    }
+
+    if (!ValidateCategory(category)) {
+      setCategoryError(true);
+      setCategoryErrorMessage("Please select a category.");
+    } else {
+      setCategoryError(false);
+    }
+
+    if (
+      ValidateTitle(title) &&
+      ValidatePrice(price) &&
+      ValidateCategory(category)
+    ) {
+      try {
+        await addExpense(title, price, category, currentUser, month.month).then(
+          (res) => {
+            userExpenses(month.month);
+            clearForm();
+            toggleAddModal();
+            return SuccessToast("Your expense has been added!");
+          }
+        );
+      } catch (error) {
+        return ErrorToast("There has been an error uploading your expense.");
+      }
     }
   };
 
@@ -98,8 +137,10 @@ const AddExpenseModal = ({
               value={title}
               handleChange={handleChange}
               label={"Title"}
-              required
             />
+            {titleError && (
+              <div className="form-error-message">{titleErrorMessage}</div>
+            )}
 
             <FormInput
               type="number"
@@ -107,17 +148,22 @@ const AddExpenseModal = ({
               value={price}
               handleChange={handleChange}
               label={"Price"}
-              required
             />
+            {priceError && (
+              <div className="form-error-message">{priceErrorMessage}</div>
+            )}
+
             <FormSelect
               name="category"
               onChange={handleChange}
               value={category}
               options={expenseOptions}
-              required
             />
+            {categoryError && (
+              <div className="form-error-message">{categoryErrorMessage}</div>
+            )}
             <CustomButton>Add expense</CustomButton>
-            <CustomButton inverted onClick={() => clearForm()}>
+            <CustomButton type="button" inverted onClick={() => clearForm()}>
               Clear form
             </CustomButton>
           </form>
