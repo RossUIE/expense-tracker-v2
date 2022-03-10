@@ -131,10 +131,12 @@ const AddExpenseForm = ({ currentUser, userExpenses }) => {
         {categoryError && (
           <div className="form-error-message">{categoryErrorMessage}</div>
         )}
-        <CustomButton>Add expense</CustomButton>
-        <CustomButton type="button" inverted onClick={() => clearForm()}>
-          Clear form
-        </CustomButton>
+        <div className="form-buttons">
+          <CustomButton>Add expense</CustomButton>
+          <CustomButton type="button" inverted onClick={() => clearForm()}>
+            Clear form
+          </CustomButton>
+        </div>
       </form>
     </div>
   );

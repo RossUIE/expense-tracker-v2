@@ -26,6 +26,7 @@ const SignIn = () => {
 
     if (emptyPassword(password)) {
       setPasswordError(true);
+      return;
     } else {
       setPasswordError(false);
     }

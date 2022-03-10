@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormInput from "../form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
 import Backdrop from "../backdrop/backdrop";
@@ -39,6 +39,12 @@ const AddExpenseModal = ({
   const [titleErrorMessage, setTitleErrorMessage] = useState("");
   const [priceErrorMessage, setPriceErrorMessage] = useState("");
   const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
+
+  useEffect(() => {
+    setTitleError(false);
+    setPriceError(false);
+    setCategoryError(false);
+  }, [active]);
 
   const handleChange = (event) => {
     const { value, name } = event.target;

@@ -91,12 +91,13 @@ export const Home = ({ currentUser }) => {
               userExpenses={getUserExpenses}
             />
           </div>
-
-          <Months getExpenses={getUserExpenses} />
-          <ExpenseList
-            expenses={filteredExpenses}
-            getUserExpenses={getUserExpenses}
-          />
+          <div className="tile">
+            <Months getExpenses={getUserExpenses} />
+            <ExpenseList
+              expenses={filteredExpenses}
+              getUserExpenses={getUserExpenses}
+            />
+          </div>
         </>
       )}
       {activeTab === "category-nav" && (

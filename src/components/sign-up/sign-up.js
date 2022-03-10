@@ -8,6 +8,7 @@ import {
   ValidateEmail,
   emptyPassword,
 } from "../../helpers/validateForm";
+import { ErrorToast } from "..//ToastMessages/ToastMessages";
 
 import {
   auth,
@@ -60,7 +61,13 @@ const SignUp = () => {
       setPasswordError(false);
     }
 
-    if (displayName && !emailError && !passwordError && password.length >= 6) {
+    if (
+      displayName &&
+      !emailError &&
+      !passwordError &&
+      password.length >= 6 &&
+      !ValidatePasswords(password, confirmPassword)
+    ) {
       try {
         const { user } = await auth.createUserWithEmailAndPassword(
           email,
@@ -75,7 +82,10 @@ const SignUp = () => {
           confirmPassword: "",
         });
       } catch (error) {
-        console.log(error);
+        if (error.code === "auth/email-already-in-use") {
+          ErrorToast("An account has already been created with this email.");
+        }
+        console.log(error.code);
       }
     }
   };
@@ -144,8 +154,9 @@ const SignUp = () => {
         {passwordError && (
           <div className="form-error-message">{passwordErrorMessage}</div>
         )}
-
-        <CustomButton type="submit">Sign up</CustomButton>
+        <div className="submit-button">
+          <CustomButton type="submit">Sign up</CustomButton>
+        </div>
       </form>
     </div>
   );

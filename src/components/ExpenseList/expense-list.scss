@@ -1,14 +1,7 @@
 @import "../../styles/vars.scss";
 @import "../../styles/functions.scss";
 .expense-list {
-  background-color: $white;
-  border-radius: rem(0 0 20 20);
-  text-align: left;
   padding: rem(20);
-  overflow-y: auto;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  margin: rem(0 0 100 0);
-
   &_header {
     display: grid;
     grid-template-columns: 2fr 1.5fr 2fr 25px 25px;

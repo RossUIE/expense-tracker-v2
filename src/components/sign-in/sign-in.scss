@@ -1,25 +1,28 @@
-
-@import '../../styles/vars.scss';
-@import '../../styles/functions.scss';
+@import "../../styles/vars.scss";
+@import "../../styles/functions.scss";
 .sign-in {
-    max-width: rem(500);
+  max-width: rem(500);
+  margin: auto;
+  background: $white;
+
+  &_illustration {
     margin: auto;
-    background: $white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 
-    &_illustration {
-        margin: auto;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
+  .or {
+    margin: rem(40 0);
+    text-align: center;
+  }
 
-    .or {
-        margin: rem(40 0);
-        text-align: center;
-    }
+  .no-account {
+    text-align: center;
+    margin-top: rem(40);
+  }
 
-    .no-account {
-        text-align: center;
-        margin-top: rem(40);
-    }
+  .buttons {
+    margin-top: rem(10);
+  }
 }
