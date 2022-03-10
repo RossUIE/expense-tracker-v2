@@ -19,7 +19,7 @@ const Header = ({ currentUser }) => {
       <div className="c-header_content">
         <div className="c-header_title">
           <h1>
-            Expenses <span className="title-lower">Tracker</span>
+            Expense <span className="title-lower">Tracker</span>
           </h1>
         </div>
 
