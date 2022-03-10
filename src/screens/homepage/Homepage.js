@@ -101,10 +101,10 @@ export const Home = ({ currentUser }) => {
         </>
       )}
       {activeTab === "category-nav" && (
-        <>
+        <div className="tile">
           <Months getExpenses={getUserExpenses} />
           <Categories expenses={expenses} />
-        </>
+        </div>
       )}
       <BottomNav handleActiveTab={(id) => handleActiveTab(id)} />
     </div>

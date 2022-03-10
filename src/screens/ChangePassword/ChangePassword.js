@@ -12,12 +12,15 @@ import {
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
+import { ValidatePasswords, emptyPassword } from "../../helpers/validateForm";
 
 import "./change-password.scss";
 
 const ChangePassword = ({ currentUser }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const handleChange = (event) => {
     const { value, name } = event.target;
 
@@ -32,11 +35,23 @@ const ChangePassword = ({ currentUser }) => {
 
   const handleSubmission = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      return ErrorToast("Passwords do not match!");
+    if (emptyPassword(password)) {
+      setPasswordError(true);
+      setPasswordErrorMessage("Please input a password");
+      return;
+    } else if (ValidatePasswords(password, confirmPassword)) {
+      setPasswordError(true);
+      setPasswordErrorMessage("Password and confirm password do not match");
+      return;
+    } else if (password.length < 6) {
+      setPasswordError(true);
+      setPasswordErrorMessage("Password must be at least 6 characters.");
+      return;
+    } else {
+      setPasswordError(false);
     }
 
-    if (password || password !== "") {
+    if (password && !passwordError) {
       try {
         const update = await updateUserPassword(currentUser, password).then(
           (res) => {
@@ -76,8 +91,10 @@ const ChangePassword = ({ currentUser }) => {
             value={password}
             handleChange={handleChange}
             label={"Password"}
-            required
           />
+          {passwordError && (
+            <div className="form-error-message">{passwordErrorMessage}</div>
+          )}
 
           <FormInput
             type="password"
@@ -85,10 +102,15 @@ const ChangePassword = ({ currentUser }) => {
             value={confirmPassword}
             handleChange={handleChange}
             label={"Confirm Password"}
-            required
           />
+          {passwordError && (
+            <div className="form-error-message">{passwordErrorMessage}</div>
+          )}
         </div>
         <CustomButton>Submit</CustomButton>
+        <NavLink to="/manage">
+          <CustomButton inverted>Back</CustomButton>
+        </NavLink>
       </form>
     </div>
   );

@@ -8,7 +8,7 @@ import {
   ValidateEmail,
   emptyPassword,
 } from "../../helpers/validateForm";
-import { ErrorToast } from "..//ToastMessages/ToastMessages";
+import { ErrorToast } from "../ToastMessages/ToastMessages";
 
 import {
   auth,

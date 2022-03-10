@@ -18,6 +18,7 @@ const AccountOptionEdit = ({ option, handleOptionActive, currentUser }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [reauthActive, setReauthActive] = useState(false);
+  const [nameError, setNameError] = useState(false);
 
   const toggleReauthModal = () => {
     setReauthActive((previousValue) => !previousValue);
@@ -44,20 +45,20 @@ const AccountOptionEdit = ({ option, handleOptionActive, currentUser }) => {
 
     if (option === "name") {
       if (name || name !== "") {
-        const call = updateProfile(currentUser, name);
-        if (call) {
-          return SuccessToast("Your display name has been updated");
+        try {
+          const call = updateProfile(currentUser, name);
+          if (call) {
+            return SuccessToast("Your display name has been updated");
+          }
+        } catch (err) {
+          return ErrorToast("Error updating display name. Please try again.");
         }
       } else {
-        return ErrorToast("Error updating display name. Please try again.");
+        setNameError(true);
       }
     }
 
     if (option === "password") {
-      if (password !== confirmPassword) {
-        return ErrorToast("Passwords do not match!");
-      }
-
       if (password || password !== "") {
         try {
           const update = await updateUserPassword(currentUser, password);
@@ -86,9 +87,13 @@ const AccountOptionEdit = ({ option, handleOptionActive, currentUser }) => {
               name="name"
               value={name}
               handleChange={handleChange}
-              label={"Name"}
-              required
+              label={"Display Name"}
             />
+          )}
+          {nameError && (
+            <div className="form-error-message">
+              Please input a display name.
+            </div>
           )}
 
           {option === "password" && (
@@ -99,7 +104,6 @@ const AccountOptionEdit = ({ option, handleOptionActive, currentUser }) => {
                 value={password}
                 handleChange={handleChange}
                 label={"Password"}
-                required
               />
 
               <FormInput
@@ -108,17 +112,17 @@ const AccountOptionEdit = ({ option, handleOptionActive, currentUser }) => {
                 value={confirmPassword}
                 handleChange={handleChange}
                 label={"Confirm Password"}
-                required
               />
             </div>
           )}
-
-          <CustomButton onClick={(e) => handleUpdateProfile(e)}>
-            Update {option}
-          </CustomButton>
-          <NavLink to="/manage" onClick={handleOptionActive()}>
-            <CustomButton inverted>Back</CustomButton>
-          </NavLink>
+          <div className="buttons">
+            <CustomButton onClick={(e) => handleUpdateProfile(e)}>
+              Update {option}
+            </CustomButton>
+            <NavLink to="/manage" onClick={handleOptionActive()}>
+              <CustomButton inverted>Back</CustomButton>
+            </NavLink>
+          </div>
         </form>
       </div>
     </div>
