@@ -27,8 +27,24 @@ export const ValidateEmail = (email) => {
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   if (!email || email === "" || regex.test(email) === false) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const ValidatePasswords = (password, confirmPassword) => {
+  if (password === confirmPassword) {
     return false;
   } else {
     return true;
+  }
+};
+
+export const emptyPassword = (password) => {
+  if (password === "" || !password) {
+    return true;
+  } else {
+    return false;
   }
 };
