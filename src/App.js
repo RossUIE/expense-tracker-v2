@@ -34,7 +34,7 @@ function App(props) {
       setCurrentUser(userAuth);
     });
     return () => unsubscribeFromAuth();
-  }, []);
+  }, [setCurrentUser]);
 
   return (
     <div>

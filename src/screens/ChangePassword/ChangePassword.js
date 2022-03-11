@@ -53,7 +53,7 @@ const ChangePassword = ({ currentUser }) => {
 
     if (password && !passwordError) {
       try {
-        const update = await updateUserPassword(currentUser, password).then(
+        await updateUserPassword(currentUser, password).then(
           (res) => {
             if (res.success === true) {
               return SuccessToast(

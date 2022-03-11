@@ -10,7 +10,6 @@ import {
   deleteDoc,
   updateDoc,
   setDoc,
-  collection,
   Timestamp,
 } from "firebase/firestore";
 import {
@@ -111,7 +110,7 @@ export const getExpenses = async (userAuth, selectedMonth) => {
     .where("timestamp", "<", last);
   let expenses = [];
 
-  const docs = await getDocs(expenseListRef)
+  await getDocs(expenseListRef)
     .then((snapshot) => {
       snapshot.docs.forEach((doc) => {
         expenses.push({ ...doc.data(), id: doc.id });
@@ -249,7 +248,7 @@ export const updateUserPassword = async (userAuth, newPassword) => {
   return req;
 };
 
-const firebaseApp = firebase.initializeApp(config);
+firebase.initializeApp(config);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

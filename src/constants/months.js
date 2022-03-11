@@ -1,4 +1,3 @@
-import React from "react";
 import { getLastDayOfMonth, getFirstDayOfMonth } from "../helpers/dateHelper";
 
 const monthNames = [

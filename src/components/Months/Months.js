@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import ScrollContainer from "react-indiana-drag-scroll";
 import monthNames from "../../constants/months";
 import { connect } from "react-redux";

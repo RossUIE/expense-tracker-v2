@@ -93,7 +93,7 @@ const EditExpenseModal = ({
     setTitleError(false);
     setPriceError(false);
     setCategoryError(false);
-  }, [active]);
+  }, [active, category, price, title]);
   return (
     <>
       <div className={active ? "edit-modal active" : "edit-modal"}>
