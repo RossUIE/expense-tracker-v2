@@ -32,6 +32,7 @@ export const ForgotPassword = () => {
         return SuccessToast("An email has been sent to your inbox.");
       })
       .catch(function (error) {
+        console.log(error)
         setHasError(true);
       });
   };
@@ -64,6 +65,9 @@ export const ForgotPassword = () => {
           label={"Email"}
           required
         />
+        {hasError &&
+          <div className="fomr-error-message">Please input a valid email.</div>
+        }
         <CustomButton>Send email</CustomButton>
       </form>
     </div>

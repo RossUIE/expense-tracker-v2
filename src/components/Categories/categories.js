@@ -45,7 +45,7 @@ const Categories = ({ month, expenses }) => {
     setTotalAmountSpent(getTotalAmountSpent(expenses));
   }, [expenses]);
 
-  const filteredExpensesCount = expenses.map((current) => {
+  expenses.map((current) => {
     if (current.category === "Groceries") {
       CATEGORY_BUCKETS.Groceries.data.push(current);
       CATEGORY_BUCKETS.Groceries.total += parseFloat(current.price);
@@ -70,6 +70,7 @@ const Categories = ({ month, expenses }) => {
     } else {
       return null;
     }
+    return "";
   });
 
   return (

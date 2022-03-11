@@ -15,7 +15,7 @@ const SearchBar = ({ queryValue }) => {
 
   useEffect(() => {
     queryValue(query);
-  }, [query]);
+  }, [query, queryValue]);
 
   return (
     <div className="search-bar">

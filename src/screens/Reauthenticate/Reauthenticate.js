@@ -5,10 +5,7 @@ import BackButton from "../../components/svg/BackButton/back-button";
 import { NavLink } from "react-router-dom";
 import { reauth } from "../../firebase/firebase.utils";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  SuccessToast,
-  ErrorToast,
-} from "../../components/ToastMessages/ToastMessages";
+import { ErrorToast } from "../../components/ToastMessages/ToastMessages";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
@@ -31,7 +28,7 @@ const Reauthenticate = ({ currentUser }) => {
   };
   const handleSubmission = async (e) => {
     e.preventDefault();
-    const handleReauth = await reauth(currentUser, password).then((res) => {
+    await reauth(currentUser, password).then((res) => {
       console.log(res);
       if (res.success === true) {
         history.push("/manage/password");

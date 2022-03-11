@@ -13,16 +13,10 @@ import {
 import { SuccessToast, ErrorToast } from "..//ToastMessages/ToastMessages";
 
 const AccountOptionEdit = ({ option, handleOptionActive, currentUser }) => {
-  const [email, setEmail] = useState(currentUser.email);
   const [name, setName] = useState(currentUser.displayName);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [reauthActive, setReauthActive] = useState(false);
   const [nameError, setNameError] = useState(false);
-
-  const toggleReauthModal = () => {
-    setReauthActive((previousValue) => !previousValue);
-  };
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -61,7 +55,7 @@ const AccountOptionEdit = ({ option, handleOptionActive, currentUser }) => {
     if (option === "password") {
       if (password || password !== "") {
         try {
-          const update = await updateUserPassword(currentUser, password);
+          await updateUserPassword(currentUser, password);
         } catch (err) {
           console.log(err);
         }
