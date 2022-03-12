@@ -1,11 +1,16 @@
 import React from "react";
 import "./expense.scss";
+import ToolTip from "../ToolTip/tooltip";
 
 const Expense = (props) => {
   return (
     <>
+      <ToolTip />
       <div className="c-expense">
-        <p className="expense title">{props.title}</p>
+        {/* eslint-disable-next-line */}
+        <a data-tip={props.title} data-for="main" className="expense title">
+          {props.title}
+        </a>
         <p className="dateSubmitted">{props.date}</p>
       </div>
 
