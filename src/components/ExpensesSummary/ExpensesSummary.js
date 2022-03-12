@@ -8,16 +8,21 @@ import { selectCurrentMonth } from "../../redux/month/month.selector";
 import monthNames from "../../constants/months";
 
 import "./expenses-summary.scss";
+import Loader from "../Loader/loader";
 
 const ExpensesSummary = ({ budget, expenses, month }) => {
   return (
     <div className="expenses-summary">
       <p className="month">{monthNames[month.month].name}</p>
       <div className="expenses-summary-graph">
-        <ProgressBar
-          budget={budget && budget.budget}
-          value={expenses && getTotalAmountSpent(expenses)}
-        />
+        {budget ? (
+          <ProgressBar
+            budget={budget && budget.budget}
+            value={expenses && getTotalAmountSpent(expenses)}
+          />
+        ) : (
+          <Loader />
+        )}
       </div>
       {budget ? (
         <p className="spent">

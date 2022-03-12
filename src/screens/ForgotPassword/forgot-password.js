@@ -6,7 +6,10 @@ import BackButton from "../../components/svg/BackButton/back-button";
 import { NavLink } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
 import "react-toastify/dist/ReactToastify.css";
-import { SuccessToast } from "../../components/ToastMessages/ToastMessages";
+import {
+  ErrorToast,
+  SuccessToast,
+} from "../../components/ToastMessages/ToastMessages";
 
 import "./forgot-password.scss";
 
@@ -23,18 +26,27 @@ export const ForgotPassword = () => {
   };
   const handleSubmission = (e) => {
     e.preventDefault();
-
-    auth
-      .sendPasswordResetEmail(email)
-      .then(function () {
-        setHasError(false);
-        setEmail("");
-        return SuccessToast("An email has been sent to your inbox.");
-      })
-      .catch(function (error) {
-        console.log(error)
-        setHasError(true);
-      });
+    if (email === "" || !email) {
+      setHasError(true);
+      return;
+    }
+    try {
+      auth
+        .sendPasswordResetEmail(email)
+        .then(function () {
+          setHasError(false);
+          setEmail("");
+          return SuccessToast("An email has been sent to your inbox.");
+        })
+        .catch(function (error) {
+          if (error.code === "auth/user-not-found") {
+            return ErrorToast("An account using this email was not found.");
+          }
+          setHasError(true);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -65,10 +77,12 @@ export const ForgotPassword = () => {
           label={"Email"}
           required
         />
-        {hasError &&
-          <div className="fomr-error-message">Please input a valid email.</div>
-        }
-        <CustomButton>Send email</CustomButton>
+        {hasError && (
+          <div className="form-error-message">Please input a valid email.</div>
+        )}
+        <div className="buttons">
+          <CustomButton>Send email</CustomButton>
+        </div>
       </form>
     </div>
   );
