@@ -5,12 +5,7 @@ import DeleteModalIllustration from "../svg/DeleteModalIllustration/DeleteModalI
 
 import "./delete-modal.scss";
 
-const DeleteModal = ({
-  title,
-  active,
-  deleteUserExpense,
-  toggleDeleteModal,
-}) => {
+const DeleteModal = ({ title, active, deleteHandler, toggleDeleteModal }) => {
   return (
     <>
       <div className={active ? `delete-modal active` : "delete-modal"}>
@@ -30,7 +25,7 @@ const DeleteModal = ({
           </div>
           <h3>Are you sure you want to delete '{title}'?</h3>
           <p>This action cannot be undone!</p>
-          <CustomButton onClick={() => deleteUserExpense()}>
+          <CustomButton onClick={() => deleteHandler()}>
             Yes, delete!
           </CustomButton>
           <CustomButton onClick={() => toggleDeleteModal()}>

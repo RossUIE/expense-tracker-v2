@@ -8,12 +8,16 @@ import { setMonth } from "../../redux/month/month.actions";
 
 import "./months.scss";
 
-const Months = ({ month, setMonth, getExpenses }) => {
+const Months = ({ month, setMonth, getExpenses, getIncomes, incomes }) => {
   const container = useRef(null);
 
   const handleChange = (month) => {
     setMonth(month);
-    getExpenses(month);
+    if (incomes) {
+      getIncomes(month);
+    } else {
+      getExpenses(month);
+    }
   };
   useEffect(() => {
     if (container.current) {
