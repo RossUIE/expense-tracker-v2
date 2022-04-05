@@ -1,0 +1,39 @@
+@import "../../styles/vars.scss";
+@import "../../styles/functions.scss";
+.additionalIncome-list {
+  padding: rem(20);
+  background-color: $white;
+  &_header {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 2fr 25px 25px;
+    font-size: rem(12);
+    color: $light-gray;
+  }
+
+  &_content {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 2fr 25px 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.no-incomes {
+  width: 100%;
+  position: relative;
+
+  &-illustration {
+    margin: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: rem(20 0);
+
+    svg {
+      width: 100%;
+    }
+  }
+  text-align: center;
+  margin: auto;
+}

@@ -1,0 +1,42 @@
+@import "../../styles/vars.scss";
+@import "../../styles/functions.scss";
+.c-income {
+  padding: rem(15 0);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: rem(150);
+
+  p {
+    margin: 0;
+  }
+
+  .income {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: rem(150);
+
+    &.title {
+      font-weight: bold;
+    }
+  }
+
+  button {
+    background: transparent;
+    border: none;
+  }
+
+  .dateSubmitted {
+    font-size: rem(12);
+    color: $light-gray;
+  }
+
+  .close {
+    margin-left: auto;
+  }
+
+  .material-icons {
+    font-size: 20px;
+    cursor: pointer;
+  }
+}

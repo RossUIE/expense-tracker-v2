@@ -93,6 +93,41 @@ export const addExpense = async (title, price, category, userAuth, month) => {
   }
 };
 
+export const addIncome = async (title, price, category, userAuth, month) => {
+  if (!userAuth) return;
+
+  const incomeRef = firestore.collection(`userData/incomes/${userAuth.id}`);
+
+  const date = new Date();
+  const getMonth = date.getMonth();
+
+  let timestamp;
+  const first = getFirstDayOfMonth(month);
+
+  if (getMonth === month) {
+    timestamp = Timestamp.now().seconds;
+  } else if (month) {
+    timestamp = first;
+  } else {
+    timestamp = Timestamp.now().seconds;
+  }
+
+  const docData = {
+    title: title,
+    price: price,
+    category: category,
+    timestamp: timestamp,
+    createdAt: serverTimestamp(),
+  };
+  try {
+    await incomeRef.add(docData);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export const getExpenses = async (userAuth, selectedMonth) => {
   if (!userAuth) return;
 
@@ -123,12 +158,52 @@ export const getExpenses = async (userAuth, selectedMonth) => {
   return expenses;
 };
 
+export const getIncomes = async (userAuth, selectedMonth) => {
+  if (!userAuth) return;
+
+  if (selectedMonth === undefined) {
+    const d = new Date();
+    selectedMonth = d.getMonth();
+  }
+
+  const first = getFirstDayOfMonth(selectedMonth);
+  const last = getLastDayOfMonth(selectedMonth);
+
+  const incomeListRef = firestore
+    .collection("userData/incomes/" + userAuth)
+    .where("timestamp", ">=", first)
+    .where("timestamp", "<", last);
+  let incomes = [];
+
+  await getDocs(incomeListRef)
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        incomes.push({ ...doc.data(), id: doc.id });
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return incomes;
+};
+
 export const deleteExpense = async (userAuth, expenseId) => {
   if (!userAuth) return;
 
   await deleteDoc(doc(db, "userData", "expenses", userAuth, expenseId))
     .then((res) => {
       console.log("deleted", expenseId);
+    })
+    .catch(console.error);
+};
+
+export const deleteIncome = async (userAuth, incomeId) => {
+  if (!userAuth) return;
+
+  await deleteDoc(doc(db, "userData", "incomes", userAuth, incomeId))
+    .then((res) => {
+      console.log("deleted", incomeId);
     })
     .catch(console.error);
 };
@@ -151,6 +226,28 @@ export const editExpense = async (
   await updateDoc(doc(db, "userData", "expenses", userAuth, expenseId), docData)
     .then((res) => {
       console.log("Edited: ", expenseId);
+    })
+    .catch(console.error);
+};
+
+export const editIncome = async (
+  userAuth,
+  title,
+  price,
+  category,
+  incomeId
+) => {
+  if (!userAuth) return;
+
+  const docData = {
+    title,
+    price,
+    category,
+  };
+
+  await updateDoc(doc(db, "userData", "incomes", userAuth, incomeId), docData)
+    .then((res) => {
+      console.log("Edited: ", incomeId);
     })
     .catch(console.error);
 };

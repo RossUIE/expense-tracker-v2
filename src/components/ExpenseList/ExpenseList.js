@@ -125,7 +125,7 @@ const ExpenseList = ({ currentUser, expenses, getUserExpenses, month }) => {
       <DeleteModal
         title={expenseTitle}
         active={deleteSuccessful}
-        deleteUserExpense={deleteUserExpense}
+        deleteHandler={deleteUserExpense}
         toggleDeleteModal={toggleDeleteModal}
       />
 

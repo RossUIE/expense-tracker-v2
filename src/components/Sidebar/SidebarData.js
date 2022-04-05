@@ -21,6 +21,12 @@ export const SidebarData = [
     cName: "set-budget-link",
   },
   {
+    title: "Additional Incomes",
+    path: "/additional-incomes",
+    icon: <i className="material-icons">wallet</i>,
+    cName: "set-budget-link",
+  },
+  {
     title: "Logout",
     path: "/signin",
     icon: <i className="material-icons">logout</i>,

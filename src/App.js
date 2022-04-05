@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import ManageAccount from "./screens/ManageAccount/ManageAccount";
 import Reauthenticate from "./screens/Reauthenticate/Reauthenticate";
 import ChangePassword from "./screens/ChangePassword/ChangePassword";
+import AdditionalIncomes from "./screens/AdditionalIncomes/AdditionalIncomes";
 
 function App(props) {
   const { setCurrentUser } = props;
@@ -44,7 +45,9 @@ function App(props) {
           {!props.currentUser && <Redirect push to="/signin" />}
         </Route>
         <Route exact path="/forgotpassword" component={ForgotPassword} />
-        <Route exact path="/setbudget" component={SetBudget} />
+        <Route exact path="/setbudget" component={SetBudget}>
+          {!props.currentUser && <Redirect push to="/signin" />}
+        </Route>
         <Route
           exact
           path="/signin"
@@ -52,7 +55,12 @@ function App(props) {
             props.currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
           }
         />
-        <Route exact path="/manage" component={ManageAccount} />
+        <Route exact path="/manage" component={ManageAccount}>
+          {!props.currentUser && <Redirect push to="/signin" />}
+        </Route>
+        <Route exact path="/additional-incomes" component={AdditionalIncomes}>
+          {!props.currentUser && <Redirect push to="/signin" />}
+        </Route>
         <Route exact path="/manage/reauth" component={Reauthenticate} />
         <Route exact path="/manage/password" component={ChangePassword} />
       </Switch>
