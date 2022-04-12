@@ -14,7 +14,7 @@ import {
   SuccessToast,
   ErrorToast,
 } from "../../components/ToastMessages/ToastMessages";
-import { expenseOptions } from "../../resources/expenseOptions";
+import { incomeOptions } from "../../resources/incomeOptions";
 import {
   ValidateTitle,
   ValidatePrice,
@@ -158,7 +158,7 @@ const AddIncomeModal = ({
               name="category"
               onChange={handleChange}
               value={category}
-              options={expenseOptions}
+              options={incomeOptions}
             />
             {categoryError && (
               <div className="form-error-message">{categoryErrorMessage}</div>
