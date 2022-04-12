@@ -37,5 +37,42 @@
       color: $brand;
       margin: 0;
     }
+
+    .income-month {
+      margin: 0;
+    }
+
+    .calculation {
+      display: flex;
+      justify-content: space-between;
+      height: rem(50);
+      align-items: center;
+      margin-top: rem(16);
+
+      .number {
+        width: rem(105);
+        padding: rem(5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: 1px solid $light-gray;
+        font-weight: bold;
+      }
+
+      .operator {
+        padding: rem(5);
+      }
+
+      .meta {
+        text-align: left;
+        margin: 0;
+        font-size: rem(10);
+        font-weight: normal;
+        span {
+          font-size: 16px;
+        }
+      }
+    }
   }
 }
